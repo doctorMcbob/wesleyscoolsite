@@ -1,0 +1,29 @@
+body {
+    text-align: center;
+    background-color: lightblue;
+}
+
+.waver .wavel {
+    font-family: Courier New, Serif;
+}
+
+.blogpost {
+    white-space: pre-line;
+}
+
+.blogdate {
+    list-style: none;
+    font-family: Arial, Helvetica, Serif;
+}
+
+#footer {
+    font-family: Arial, Helvetica, Serif;
+    font-size: small;
+
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    
+    background-color: #A9A0FF;
+}

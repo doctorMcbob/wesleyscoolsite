@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    {% block head %}
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <script src="/static/js/script.js"></script>
+    <title> {% block title %} {% endblock %} - Wesleys Cool Site </title>
+    {% endblock %}
+  </head>
+
+  <body>
+    <div id="header">
+      <a href="/">HOME</a> | <a href="/blog">BLOG</a>
+    </div>
+    <div id="content">{% block content %}{% endblock %}</div>
+    <div id="footer">
+      {% block footer %}
+      Please give me a job, wootenwesley@gmail.com, <a href="https://www.github.com/doctorMcbob/">my github</a> 
+      {% endblock %}
+    </div>
+  </body>
+</html>
