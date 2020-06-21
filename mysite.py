@@ -42,16 +42,21 @@ def a_blog(request):
 def automata(request):
     return Response(tempenv.get_template("automata.html").render())
 
+def automata_about(reqiest):
+    return Response(tempenv.get_template("automata_about.html").render())
+
 if __name__ == "__main__":
     with Configurator() as config:
         config.add_route("main", "/")
         config.add_view(main, route_name="main")
         config.add_route("blog", "/blog")
         config.add_view(blog_response, route_name="blog")
-        config.add_route("a_blog", "/blog/{date}")
-        config.add_view(a_blog, route_name="a_blog")
+        config.add_route("a blog", "/blog/{date}")
+        config.add_view(a_blog, route_name="a blog")
         config.add_route("automata", "/automata")
         config.add_view(automata, route_name="automata")
+        config.add_route("automata about", "/automata/about")
+        config.add_view(automata_about, route_name="automata about")
 
         config.add_static_view(name="/static", path="mysite:/static/")
         config.add_static_view(name="/static/css", path="mysite:/static/css/")

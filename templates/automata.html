@@ -3,5 +3,16 @@
 {% block title %} Automata {% endblock %}
 
 {% block content %}
-
+<div id="above">
+  <a href="automata/about">ABOUT</a>
+  <p>Rule: 
+    <input type="text" id="rule"></input>
+  </p>
+</div>
+<canvas id="board"></canvas>
+<br>
+<button type="button" id="play" onclick="play()"> Play </button>
+<button type="button" id="next" onclick="next()"> Next </button>
+<button type="button" id="new" onclick="newrule()"> New </button>
+<script src="/static/js/grid.js"></script>
 {% endblock %}
