@@ -5,9 +5,12 @@
 {% block content %}
 <div id="above">
   <a href="automata/about">ABOUT</a>
-  <p>Rule: 
+  <div>Rule: 
     <input type="text" id="rule"></input>
-  </p>
+    <button style="display:inline;" type="button" id="set_rule" onclick="set_rule()">
+      Set Rule
+    </button>
+  </div>
 </div>
 <canvas id="board"></canvas>
 <br>

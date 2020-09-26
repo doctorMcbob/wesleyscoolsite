@@ -75,13 +75,30 @@ function apply_rule(W, H, rule, cells) {
     return next_gen
 }
 
+function hash_to_hex(rule) {
+    var hash = "";
+    for (var i=0; i<rule.length; i+=4) {
+	var b = parseInt(rule.slice(i, i+4), 2).toString(16);
+	hash += b;
+    }
+    return hash;
+}
+function dehash_to_bin(hash) {
+    var bin = "";
+    for (var i=0; i<hash.length; i++) {
+	var h = "0000" + parseInt(hash[i], 16).toString(2);
+	h = h.slice(h.length - 4, h.length);
+	bin += h;
+    }
+    return bin;
+}
 
 cells = fresh_board(W, H);
 draw_board(cells);
 rule = get_rule();
-bint = BigInt('0b'+rule);
-hash = bint.toString(36);
-document.getElementById("rule").value = hash;
+//bint = BigInt('0b'+rule);
+//hash = bint.toString(36);
+document.getElementById("rule").value = hash_to_hex(rule);
 
 /*
 Buttons ~
@@ -91,11 +108,16 @@ function newrule() {
     cells = fresh_board(W, H);
     draw_board(cells);
     rule = get_rule();
-    bint = BigInt('0b'+rule);
-    hash = bint.toString(36);
-    document.getElementById("rule").value = hash;
+    //bint = BigInt('0b'+rule);
+    //hash = bint.toString(36);
+    document.getElementById("rule").value = hash_to_hex(rule);
 }
 
+function set_rule() {
+    cells = fresh_board(W, H);
+    draw_board(cells);
+    rule = dehash_to_bin(document.getElementById("rule").value);
+}
 
 function next() {
     cells = apply_rule(W, H, rule, cells);
