@@ -1,0 +1,11 @@
+Its been a while!
+
+I decided to finally add a rule builder to the cellular automata on the cite.
+
+I also finally added a rule loader to go along with it.
+
+I really should add some documentation, but for now I'm happy with just a functional tool to play with.
+
+I have more fun stuff for the site coming through the pipeline, Im transcribing my <a href="https://github.com/doctorMcbob/mazes/">maze algorithm</a> into javascript. Its gonna to be great.
+
+Thanks for reading, whoever you are.

@@ -6,7 +6,7 @@
 <h1> Blog from {{ date }} </h1>
 
 <div class="blogpost">
-  {{ blog }}
+  {{ blog|safe }}
 </div>
 
 {% endblock %}
