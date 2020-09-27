@@ -31,3 +31,7 @@ body {
     
     background-color: #A9A0FF;
 }
+
+.automata_layer li {
+    display: inline;
+}

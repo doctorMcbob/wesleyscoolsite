@@ -23,14 +23,14 @@ for (var i=0; i < boards.length; i++) {
     var rule = boards[i].id;
     var cells = new Set();
     for (var j=0; j < rule.length; j++) {
-	console.log(rule[j]);
-	console.log(j);
 	if (rule[j] == "1") {
-	    if (j < 3) {
+	    if (j <= 3) {
 		cells.add(pack(mod(j, 3), Math.floor(j/3)));
 	    } else if (j > 3) {
 		cells.add(pack(mod(j+1, 3), Math.floor((j+1)/3)));
-	    } 
+	    } else {
+		console.log(j);
+	    }
 	}
     }
     draw_board(ctx, cells);
