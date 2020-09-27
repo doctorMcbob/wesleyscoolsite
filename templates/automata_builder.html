@@ -5,1093 +5,1097 @@
 {% block content %}
 
 <div id="automata_builder">
+  <div id="rule_holder">
+    Rule:
+    <p id="rule"></p>
+  </div>
   <ul>
     <div class="automata_layer">
       <li>
 	<canvas class="demo" id="00000000"></canvas>
-	<input type="checkbox" value="0">
+	<input type="checkbox" id="0">
       </li>
       <li>
 	<canvas class="demo" id="10000000"></canvas>
-	<input type="checkbox" value="1">
+	<input type="checkbox" id="1">
       </li>
       <li>
 	<canvas class="demo" id="01000000"></canvas>
-	<input type="checkbox" value="2">
+	<input type="checkbox" id="2">
       </li>
       <li>
 	<canvas class="demo" id="11000000"></canvas>
-	<input type="checkbox" value="3">
+	<input type="checkbox" id="3">
       </li>
       <li>
 	<canvas class="demo" id="00100000"></canvas>
-	<input type="checkbox" value="4">
+	<input type="checkbox" id="4">
       </li>
       <li>
 	<canvas class="demo" id="10100000"></canvas>
-	<input type="checkbox" value="5">
+	<input type="checkbox" id="5">
       </li>
       <li>
 	<canvas class="demo" id="01100000"></canvas>
-	<input type="checkbox" value="6">
+	<input type="checkbox" id="6">
       </li>
       <li>
 	<canvas class="demo" id="11100000"></canvas>
-	<input type="checkbox" value="7">
+	<input type="checkbox" id="7">
       </li>
     </div>
     <div class="automata_layer">
       <li>
 	<canvas class="demo" id="00010000"></canvas>
-	<input type="checkbox" value="8">
+	<input type="checkbox" id="8">
       </li>
       <li>
 	<canvas class="demo" id="10010000"></canvas>
-	<input type="checkbox" value="9">
+	<input type="checkbox" id="9">
       </li>
       <li>
 	<canvas class="demo" id="01010000"></canvas>
-	<input type="checkbox" value="10">
+	<input type="checkbox" id="10">
       </li>
       <li>
 	<canvas class="demo" id="11010000"></canvas>
-	<input type="checkbox" value="11">
+	<input type="checkbox" id="11">
       </li>
       <li>
 	<canvas class="demo" id="00110000"></canvas>
-	<input type="checkbox" value="12">
+	<input type="checkbox" id="12">
       </li>
       <li>
 	<canvas class="demo" id="10110000"></canvas>
-	<input type="checkbox" value="13">
+	<input type="checkbox" id="13">
       </li>
       <li>
 	<canvas class="demo" id="01110000"></canvas>
-	<input type="checkbox" value="14">
+	<input type="checkbox" id="14">
       </li>
       <li>
 	<canvas class="demo" id="11110000"></canvas>
-	<input type="checkbox" value="15">
+	<input type="checkbox" id="15">
       </li>
     </div>
         <div class="automata_layer">
       <li>
 	<canvas class="demo" id="00001000"></canvas>
-	<input type="checkbox" value="16">
+	<input type="checkbox" id="16">
       </li>
       <li>
 	<canvas class="demo" id="10001000"></canvas>
-	<input type="checkbox" value="17">
+	<input type="checkbox" id="17">
       </li>
       <li>
 	<canvas class="demo" id="01001000"></canvas>
-	<input type="checkbox" value="18">
+	<input type="checkbox" id="18">
       </li>
       <li>
 	<canvas class="demo" id="11001000"></canvas>
-	<input type="checkbox" value="19">
+	<input type="checkbox" id="19">
       </li>
       <li>
 	<canvas class="demo" id="00101000"></canvas>
-	<input type="checkbox" value="20">
+	<input type="checkbox" id="20">
       </li>
       <li>
 	<canvas class="demo" id="10101000"></canvas>
-	<input type="checkbox" value="21">
+	<input type="checkbox" id="21">
       </li>
       <li>
 	<canvas class="demo" id="01101000"></canvas>
-	<input type="checkbox" value="22">
+	<input type="checkbox" id="22">
       </li>
       <li>
 	<canvas class="demo" id="11101000"></canvas>
-	<input type="checkbox" value="23">
+	<input type="checkbox" id="23">
       </li>
     </div>
     <div class="automata_layer">
       <li>
 	<canvas class="demo" id="00011000"></canvas>
-	<input type="checkbox" value="24">
+	<input type="checkbox" id="24">
       </li>
       <li>
 	<canvas class="demo" id="10011000"></canvas>
-	<input type="checkbox" value="25">
+	<input type="checkbox" id="25">
       </li>
       <li>
 	<canvas class="demo" id="01011000"></canvas>
-	<input type="checkbox" value="26">
+	<input type="checkbox" id="26">
       </li>
       <li>
 	<canvas class="demo" id="11011000"></canvas>
-	<input type="checkbox" value="27">
+	<input type="checkbox" id="27">
       </li>
       <li>
 	<canvas class="demo" id="00111000"></canvas>
-	<input type="checkbox" value="28">
+	<input type="checkbox" id="28">
       </li>
       <li>
 	<canvas class="demo" id="10111000"></canvas>
-	<input type="checkbox" value="29">
+	<input type="checkbox" id="29">
       </li>
       <li>
 	<canvas class="demo" id="01111000"></canvas>
-	<input type="checkbox" value="30">
+	<input type="checkbox" id="30">
       </li>
       <li>
 	<canvas class="demo" id="11111000"></canvas>
-	<input type="checkbox" value="31">
+	<input type="checkbox" id="31">
       </li>
     </div>
     <div class="automata_layer">
       <li>
 	<canvas class="demo" id="00000100"></canvas>
-	<input type="checkbox" value="32">
+	<input type="checkbox" id="32">
       </li>
       <li>
 	<canvas class="demo" id="10000100"></canvas>
-	<input type="checkbox" value="33">
+	<input type="checkbox" id="33">
       </li>
       <li>
 	<canvas class="demo" id="01000100"></canvas>
-	<input type="checkbox" value="34">
+	<input type="checkbox" id="34">
       </li>
       <li>
 	<canvas class="demo" id="11000100"></canvas>
-	<input type="checkbox" value="35">
+	<input type="checkbox" id="35">
       </li>
       <li>
 	<canvas class="demo" id="00100100"></canvas>
-	<input type="checkbox" value="36">
+	<input type="checkbox" id="36">
       </li>
       <li>
 	<canvas class="demo" id="10100100"></canvas>
-	<input type="checkbox" value="37">
+	<input type="checkbox" id="37">
       </li>
       <li>
 	<canvas class="demo" id="01100100"></canvas>
-	<input type="checkbox" value="38">
+	<input type="checkbox" id="38">
       </li>
       <li>
 	<canvas class="demo" id="11100100"></canvas>
-	<input type="checkbox" value="39">
+	<input type="checkbox" id="39">
       </li>
     </div>
     <div class="automata_layer">
       <li>
 	<canvas class="demo" id="00010100"></canvas>
-	<input type="checkbox" value="40">
+	<input type="checkbox" id="40">
       </li>
       <li>
 	<canvas class="demo" id="10010100"></canvas>
-	<input type="checkbox" value="41">
+	<input type="checkbox" id="41">
       </li>
       <li>
 	<canvas class="demo" id="01010100"></canvas>
-	<input type="checkbox" value="42">
+	<input type="checkbox" id="42">
       </li>
       <li>
 	<canvas class="demo" id="11010100"></canvas>
-	<input type="checkbox" value="43">
+	<input type="checkbox" id="43">
       </li>
       <li>
 	<canvas class="demo" id="00110100"></canvas>
-	<input type="checkbox" value="44">
+	<input type="checkbox" id="44">
       </li>
       <li>
 	<canvas class="demo" id="10110100"></canvas>
-	<input type="checkbox" value="45">
+	<input type="checkbox" id="45">
       </li>
       <li>
 	<canvas class="demo" id="01110100"></canvas>
-	<input type="checkbox" value="46">
+	<input type="checkbox" id="46">
       </li>
       <li>
 	<canvas class="demo" id="11110100"></canvas>
-	<input type="checkbox" value="47">
+	<input type="checkbox" id="47">
       </li>
     </div>
         <div class="automata_layer">
       <li>
 	<canvas class="demo" id="00001100"></canvas>
-	<input type="checkbox" value="48">
+	<input type="checkbox" id="48">
       </li>
       <li>
 	<canvas class="demo" id="10001100"></canvas>
-	<input type="checkbox" value="49">
+	<input type="checkbox" id="49">
       </li>
       <li>
 	<canvas class="demo" id="01001100"></canvas>
-	<input type="checkbox" value="50">
+	<input type="checkbox" id="50">
       </li>
       <li>
 	<canvas class="demo" id="11001100"></canvas>
-	<input type="checkbox" value="51">
+	<input type="checkbox" id="51">
       </li>
       <li>
 	<canvas class="demo" id="00101100"></canvas>
-	<input type="checkbox" value="52">
+	<input type="checkbox" id="52">
       </li>
       <li>
 	<canvas class="demo" id="10101100"></canvas>
-	<input type="checkbox" value="53">
+	<input type="checkbox" id="53">
       </li>
       <li>
 	<canvas class="demo" id="01101100"></canvas>
-	<input type="checkbox" value="54">
+	<input type="checkbox" id="54">
       </li>
       <li>
 	<canvas class="demo" id="11101100"></canvas>
-	<input type="checkbox" value="55">
+	<input type="checkbox" id="55">
       </li>
     </div>
     <div class="automata_layer">
       <li>
 	<canvas class="demo" id="00011100"></canvas>
-	<input type="checkbox" value="56">
+	<input type="checkbox" id="56">
       </li>
       <li>
 	<canvas class="demo" id="10011100"></canvas>
-	<input type="checkbox" value="57">
+	<input type="checkbox" id="57">
       </li>
       <li>
 	<canvas class="demo" id="01011100"></canvas>
-	<input type="checkbox" value="58">
+	<input type="checkbox" id="58">
       </li>
       <li>
 	<canvas class="demo" id="11011100"></canvas>
-	<input type="checkbox" value="59">
+	<input type="checkbox" id="59">
       </li>
       <li>
 	<canvas class="demo" id="00111100"></canvas>
-	<input type="checkbox" value="60">
+	<input type="checkbox" id="60">
       </li>
       <li>
 	<canvas class="demo" id="10111100"></canvas>
-	<input type="checkbox" value="61">
+	<input type="checkbox" id="61">
       </li>
       <li>
 	<canvas class="demo" id="01111100"></canvas>
-	<input type="checkbox" value="62">
+	<input type="checkbox" id="62">
       </li>
       <li>
 	<canvas class="demo" id="11111100"></canvas>
-	<input type="checkbox" value="63">
+	<input type="checkbox" id="63">
       </li>
     </div>
     <div class="automata_layer">
       <li>
 	<canvas class="demo" id="00000010"></canvas>
-	<input type="checkbox" value="64">
+	<input type="checkbox" id="64">
       </li>
       <li>
 	<canvas class="demo" id="10000010"></canvas>
-	<input type="checkbox" value="65">
+	<input type="checkbox" id="65">
       </li>
       <li>
 	<canvas class="demo" id="01000010"></canvas>
-	<input type="checkbox" value="66">
+	<input type="checkbox" id="66">
       </li>
       <li>
 	<canvas class="demo" id="11000010"></canvas>
-	<input type="checkbox" value="67">
+	<input type="checkbox" id="67">
       </li>
       <li>
 	<canvas class="demo" id="00100010"></canvas>
-	<input type="checkbox" value="68">
+	<input type="checkbox" id="68">
       </li>
       <li>
 	<canvas class="demo" id="10100010"></canvas>
-	<input type="checkbox" value="69">
+	<input type="checkbox" id="69">
       </li>
       <li>
 	<canvas class="demo" id="01100010"></canvas>
-	<input type="checkbox" value="70">
+	<input type="checkbox" id="70">
       </li>
       <li>
 	<canvas class="demo" id="11100010"></canvas>
-	<input type="checkbox" value="71">
+	<input type="checkbox" id="71">
       </li>
     </div>
     <div class="automata_layer">
       <li>
 	<canvas class="demo" id="00010010"></canvas>
-	<input type="checkbox" value="72">
+	<input type="checkbox" id="72">
       </li>
       <li>
 	<canvas class="demo" id="10010010"></canvas>
-	<input type="checkbox" value="73">
+	<input type="checkbox" id="73">
       </li>
       <li>
 	<canvas class="demo" id="01010010"></canvas>
-	<input type="checkbox" value="74">
+	<input type="checkbox" id="74">
       </li>
       <li>
 	<canvas class="demo" id="11010010"></canvas>
-	<input type="checkbox" value="75">
+	<input type="checkbox" id="75">
       </li>
       <li>
 	<canvas class="demo" id="00110010"></canvas>
-	<input type="checkbox" value="76">
+	<input type="checkbox" id="76">
       </li>
       <li>
 	<canvas class="demo" id="10110010"></canvas>
-	<input type="checkbox" value="77">
+	<input type="checkbox" id="77">
       </li>
       <li>
 	<canvas class="demo" id="01110010"></canvas>
-	<input type="checkbox" value="78">
+	<input type="checkbox" id="78">
       </li>
       <li>
 	<canvas class="demo" id="11110010"></canvas>
-	<input type="checkbox" value="79">
+	<input type="checkbox" id="79">
       </li>
     </div>
         <div class="automata_layer">
       <li>
 	<canvas class="demo" id="00001010"></canvas>
-	<input type="checkbox" value="80">
+	<input type="checkbox" id="80">
       </li>
       <li>
 	<canvas class="demo" id="10001010"></canvas>
-	<input type="checkbox" value="81">
+	<input type="checkbox" id="81">
       </li>
       <li>
 	<canvas class="demo" id="01001010"></canvas>
-	<input type="checkbox" value="82">
+	<input type="checkbox" id="82">
       </li>
       <li>
 	<canvas class="demo" id="11001010"></canvas>
-	<input type="checkbox" value="83">
+	<input type="checkbox" id="83">
       </li>
       <li>
 	<canvas class="demo" id="00101010"></canvas>
-	<input type="checkbox" value="84">
+	<input type="checkbox" id="84">
       </li>
       <li>
 	<canvas class="demo" id="10101010"></canvas>
-	<input type="checkbox" value="85">
+	<input type="checkbox" id="85">
       </li>
       <li>
 	<canvas class="demo" id="01101010"></canvas>
-	<input type="checkbox" value="86">
+	<input type="checkbox" id="86">
       </li>
       <li>
 	<canvas class="demo" id="11101010"></canvas>
-	<input type="checkbox" value="87">
+	<input type="checkbox" id="87">
       </li>
     </div>
     <div class="automata_layer">
       <li>
 	<canvas class="demo" id="00011010"></canvas>
-	<input type="checkbox" value="88">
+	<input type="checkbox" id="88">
       </li>
       <li>
 	<canvas class="demo" id="10011010"></canvas>
-	<input type="checkbox" value="89">
+	<input type="checkbox" id="89">
       </li>
       <li>
 	<canvas class="demo" id="01011010"></canvas>
-	<input type="checkbox" value="90">
+	<input type="checkbox" id="90">
       </li>
       <li>
 	<canvas class="demo" id="11011010"></canvas>
-	<input type="checkbox" value="91">
+	<input type="checkbox" id="91">
       </li>
       <li>
 	<canvas class="demo" id="00111010"></canvas>
-	<input type="checkbox" value="92">
+	<input type="checkbox" id="92">
       </li>
       <li>
 	<canvas class="demo" id="10111010"></canvas>
-	<input type="checkbox" value="93">
+	<input type="checkbox" id="93">
       </li>
       <li>
 	<canvas class="demo" id="01111010"></canvas>
-	<input type="checkbox" value="94">
+	<input type="checkbox" id="94">
       </li>
       <li>
 	<canvas class="demo" id="11111010"></canvas>
-	<input type="checkbox" value="95">
+	<input type="checkbox" id="95">
       </li>
     </div>
     <div class="automata_layer">
       <li>
 	<canvas class="demo" id="00000110"></canvas>
-	<input type="checkbox" value="96">
+	<input type="checkbox" id="96">
       </li>
       <li>
 	<canvas class="demo" id="10000110"></canvas>
-	<input type="checkbox" value="97">
+	<input type="checkbox" id="97">
       </li>
       <li>
 	<canvas class="demo" id="01000110"></canvas>
-	<input type="checkbox" value="98">
+	<input type="checkbox" id="98">
       </li>
       <li>
 	<canvas class="demo" id="11000110"></canvas>
-	<input type="checkbox" value="99">
+	<input type="checkbox" id="99">
       </li>
       <li>
 	<canvas class="demo" id="00100110"></canvas>
-	<input type="checkbox" value="100">
+	<input type="checkbox" id="100">
       </li>
       <li>
 	<canvas class="demo" id="10100110"></canvas>
-	<input type="checkbox" value="101">
+	<input type="checkbox" id="101">
       </li>
       <li>
 	<canvas class="demo" id="01100110"></canvas>
-	<input type="checkbox" value="102">
+	<input type="checkbox" id="102">
       </li>
       <li>
 	<canvas class="demo" id="11100110"></canvas>
-	<input type="checkbox" value="103">
+	<input type="checkbox" id="103">
       </li>
     </div>
     <div class="automata_layer">
       <li>
 	<canvas class="demo" id="00010110"></canvas>
-	<input type="checkbox" value="104">
+	<input type="checkbox" id="104">
       </li>
       <li>
 	<canvas class="demo" id="10010110"></canvas>
-	<input type="checkbox" value="105">
+	<input type="checkbox" id="105">
       </li>
       <li>
 	<canvas class="demo" id="01010110"></canvas>
-	<input type="checkbox" value="106">
+	<input type="checkbox" id="106">
       </li>
       <li>
 	<canvas class="demo" id="11010110"></canvas>
-	<input type="checkbox" value="107">
+	<input type="checkbox" id="107">
       </li>
       <li>
 	<canvas class="demo" id="00110110"></canvas>
-	<input type="checkbox" value="108">
+	<input type="checkbox" id="108">
       </li>
       <li>
 	<canvas class="demo" id="10110110"></canvas>
-	<input type="checkbox" value="109">
+	<input type="checkbox" id="109">
       </li>
       <li>
 	<canvas class="demo" id="01110110"></canvas>
-	<input type="checkbox" value="110">
+	<input type="checkbox" id="110">
       </li>
       <li>
 	<canvas class="demo" id="11110110"></canvas>
-	<input type="checkbox" value="111">
+	<input type="checkbox" id="111">
       </li>
     </div>
         <div class="automata_layer">
       <li>
 	<canvas class="demo" id="00001110"></canvas>
-	<input type="checkbox" value="112">
+	<input type="checkbox" id="112">
       </li>
       <li>
 	<canvas class="demo" id="10001110"></canvas>
-	<input type="checkbox" value="113">
+	<input type="checkbox" id="113">
       </li>
       <li>
 	<canvas class="demo" id="01001110"></canvas>
-	<input type="checkbox" value="114">
+	<input type="checkbox" id="114">
       </li>
       <li>
 	<canvas class="demo" id="11001110"></canvas>
-	<input type="checkbox" value="115">
+	<input type="checkbox" id="115">
       </li>
       <li>
 	<canvas class="demo" id="00101110"></canvas>
-	<input type="checkbox" value="116">
+	<input type="checkbox" id="116">
       </li>
       <li>
 	<canvas class="demo" id="10101110"></canvas>
-	<input type="checkbox" value="117">
+	<input type="checkbox" id="117">
       </li>
       <li>
 	<canvas class="demo" id="01101110"></canvas>
-	<input type="checkbox" value="118">
+	<input type="checkbox" id="118">
       </li>
       <li>
 	<canvas class="demo" id="11101110"></canvas>
-	<input type="checkbox" value="119">
+	<input type="checkbox" id="119">
       </li>
     </div>
     <div class="automata_layer">
       <li>
 	<canvas class="demo" id="00011110"></canvas>
-	<input type="checkbox" value="120">
+	<input type="checkbox" id="120">
       </li>
       <li>
 	<canvas class="demo" id="10011110"></canvas>
-	<input type="checkbox" value="121">
+	<input type="checkbox" id="121">
       </li>
       <li>
 	<canvas class="demo" id="01011110"></canvas>
-	<input type="checkbox" value="122">
+	<input type="checkbox" id="122">
       </li>
       <li>
 	<canvas class="demo" id="11011110"></canvas>
-	<input type="checkbox" value="123">
+	<input type="checkbox" id="123">
       </li>
       <li>
 	<canvas class="demo" id="00111110"></canvas>
-	<input type="checkbox" value="124">
+	<input type="checkbox" id="124">
       </li>
       <li>
 	<canvas class="demo" id="10111110"></canvas>
-	<input type="checkbox" value="125">
+	<input type="checkbox" id="125">
       </li>
       <li>
 	<canvas class="demo" id="01111110"></canvas>
-	<input type="checkbox" value="126">
+	<input type="checkbox" id="126">
       </li>
       <li>
 	<canvas class="demo" id="11111110"></canvas>
-	<input type="checkbox" value="127">
+	<input type="checkbox" id="127">
       </li>
     </div>
     <div class="automata_layer">
       <li>
 	<canvas class="demo" id="00000001"></canvas>
-	<input type="checkbox" value="128">
+	<input type="checkbox" id="128">
       </li>
       <li>
 	<canvas class="demo" id="10000001"></canvas>
-	<input type="checkbox" value="129">
+	<input type="checkbox" id="129">
       </li>
       <li>
 	<canvas class="demo" id="01000001"></canvas>
-	<input type="checkbox" value="130">
+	<input type="checkbox" id="130">
       </li>
       <li>
 	<canvas class="demo" id="11000001"></canvas>
-	<input type="checkbox" value="131">
+	<input type="checkbox" id="131">
       </li>
       <li>
 	<canvas class="demo" id="00100001"></canvas>
-	<input type="checkbox" value="132">
+	<input type="checkbox" id="132">
       </li>
       <li>
 	<canvas class="demo" id="10100001"></canvas>
-	<input type="checkbox" value="133">
+	<input type="checkbox" id="133">
       </li>
       <li>
 	<canvas class="demo" id="01100001"></canvas>
-	<input type="checkbox" value="134">
+	<input type="checkbox" id="134">
       </li>
       <li>
 	<canvas class="demo" id="11100001"></canvas>
-	<input type="checkbox" value="135">
+	<input type="checkbox" id="135">
       </li>
     </div>
     <div class="automata_layer">
       <li>
 	<canvas class="demo" id="00010001"></canvas>
-	<input type="checkbox" value="136">
+	<input type="checkbox" id="136">
       </li>
       <li>
 	<canvas class="demo" id="10010001"></canvas>
-	<input type="checkbox" value="137">
+	<input type="checkbox" id="137">
       </li>
       <li>
 	<canvas class="demo" id="01010001"></canvas>
-	<input type="checkbox" value="138">
+	<input type="checkbox" id="138">
       </li>
       <li>
 	<canvas class="demo" id="11010001"></canvas>
-	<input type="checkbox" value="139">
+	<input type="checkbox" id="139">
       </li>
       <li>
 	<canvas class="demo" id="00110001"></canvas>
-	<input type="checkbox" value="140">
+	<input type="checkbox" id="140">
       </li>
       <li>
 	<canvas class="demo" id="10110001"></canvas>
-	<input type="checkbox" value="141">
+	<input type="checkbox" id="141">
       </li>
       <li>
 	<canvas class="demo" id="01110001"></canvas>
-	<input type="checkbox" value="142">
+	<input type="checkbox" id="142">
       </li>
       <li>
 	<canvas class="demo" id="11110001"></canvas>
-	<input type="checkbox" value="143">
+	<input type="checkbox" id="143">
       </li>
     </div>
         <div class="automata_layer">
       <li>
 	<canvas class="demo" id="00001001"></canvas>
-	<input type="checkbox" value="144">
+	<input type="checkbox" id="144">
       </li>
       <li>
 	<canvas class="demo" id="10001001"></canvas>
-	<input type="checkbox" value="145">
+	<input type="checkbox" id="145">
       </li>
       <li>
 	<canvas class="demo" id="01001001"></canvas>
-	<input type="checkbox" value="146">
+	<input type="checkbox" id="146">
       </li>
       <li>
 	<canvas class="demo" id="11001001"></canvas>
-	<input type="checkbox" value="147">
+	<input type="checkbox" id="147">
       </li>
       <li>
 	<canvas class="demo" id="00101001"></canvas>
-	<input type="checkbox" value="148">
+	<input type="checkbox" id="148">
       </li>
       <li>
 	<canvas class="demo" id="10101001"></canvas>
-	<input type="checkbox" value="149">
+	<input type="checkbox" id="149">
       </li>
       <li>
 	<canvas class="demo" id="01101001"></canvas>
-	<input type="checkbox" value="150">
+	<input type="checkbox" id="150">
       </li>
       <li>
 	<canvas class="demo" id="11101001"></canvas>
-	<input type="checkbox" value="151">
+	<input type="checkbox" id="151">
       </li>
     </div>
     <div class="automata_layer">
       <li>
 	<canvas class="demo" id="00011001"></canvas>
-	<input type="checkbox" value="152">
+	<input type="checkbox" id="152">
       </li>
       <li>
 	<canvas class="demo" id="10011001"></canvas>
-	<input type="checkbox" value="153">
+	<input type="checkbox" id="153">
       </li>
       <li>
 	<canvas class="demo" id="01011001"></canvas>
-	<input type="checkbox" value="154">
+	<input type="checkbox" id="154">
       </li>
       <li>
 	<canvas class="demo" id="11011001"></canvas>
-	<input type="checkbox" value="155">
+	<input type="checkbox" id="155">
       </li>
       <li>
 	<canvas class="demo" id="00111001"></canvas>
-	<input type="checkbox" value="156">
+	<input type="checkbox" id="156">
       </li>
       <li>
 	<canvas class="demo" id="10111001"></canvas>
-	<input type="checkbox" value="157">
+	<input type="checkbox" id="157">
       </li>
       <li>
 	<canvas class="demo" id="01111001"></canvas>
-	<input type="checkbox" value="158">
+	<input type="checkbox" id="158">
       </li>
       <li>
 	<canvas class="demo" id="11111001"></canvas>
-	<input type="checkbox" value="159">
+	<input type="checkbox" id="159">
       </li>
     </div>
     <div class="automata_layer">
       <li>
 	<canvas class="demo" id="00000101"></canvas>
-	<input type="checkbox" value="160">
+	<input type="checkbox" id="160">
       </li>
       <li>
 	<canvas class="demo" id="10000101"></canvas>
-	<input type="checkbox" value="161">
+	<input type="checkbox" id="161">
       </li>
       <li>
 	<canvas class="demo" id="01000101"></canvas>
-	<input type="checkbox" value="162">
+	<input type="checkbox" id="162">
       </li>
       <li>
 	<canvas class="demo" id="11000101"></canvas>
-	<input type="checkbox" value="163">
+	<input type="checkbox" id="163">
       </li>
       <li>
 	<canvas class="demo" id="00100101"></canvas>
-	<input type="checkbox" value="164">
+	<input type="checkbox" id="164">
       </li>
       <li>
 	<canvas class="demo" id="10100101"></canvas>
-	<input type="checkbox" value="165">
+	<input type="checkbox" id="165">
       </li>
       <li>
 	<canvas class="demo" id="01100101"></canvas>
-	<input type="checkbox" value="166">
+	<input type="checkbox" id="166">
       </li>
       <li>
 	<canvas class="demo" id="11100101"></canvas>
-	<input type="checkbox" value="167">
+	<input type="checkbox" id="167">
       </li>
     </div>
     <div class="automata_layer">
       <li>
 	<canvas class="demo" id="00010101"></canvas>
-	<input type="checkbox" value="168">
+	<input type="checkbox" id="168">
       </li>
       <li>
 	<canvas class="demo" id="10010101"></canvas>
-	<input type="checkbox" value="169">
+	<input type="checkbox" id="169">
       </li>
       <li>
 	<canvas class="demo" id="01010101"></canvas>
-	<input type="checkbox" value="170">
+	<input type="checkbox" id="170">
       </li>
       <li>
 	<canvas class="demo" id="11010101"></canvas>
-	<input type="checkbox" value="171">
+	<input type="checkbox" id="171">
       </li>
       <li>
 	<canvas class="demo" id="00110101"></canvas>
-	<input type="checkbox" value="172">
+	<input type="checkbox" id="172">
       </li>
       <li>
 	<canvas class="demo" id="10110101"></canvas>
-	<input type="checkbox" value="173">
+	<input type="checkbox" id="173">
       </li>
       <li>
 	<canvas class="demo" id="01110101"></canvas>
-	<input type="checkbox" value="174">
+	<input type="checkbox" id="174">
       </li>
       <li>
 	<canvas class="demo" id="11110101"></canvas>
-	<input type="checkbox" value="175">
+	<input type="checkbox" id="175">
       </li>
     </div>
         <div class="automata_layer">
       <li>
 	<canvas class="demo" id="00001101"></canvas>
-	<input type="checkbox" value="176">
+	<input type="checkbox" id="176">
       </li>
       <li>
 	<canvas class="demo" id="10001101"></canvas>
-	<input type="checkbox" value="177">
+	<input type="checkbox" id="177">
       </li>
       <li>
 	<canvas class="demo" id="01001101"></canvas>
-	<input type="checkbox" value="178">
+	<input type="checkbox" id="178">
       </li>
       <li>
 	<canvas class="demo" id="11001101"></canvas>
-	<input type="checkbox" value="179">
+	<input type="checkbox" id="179">
       </li>
       <li>
 	<canvas class="demo" id="00101101"></canvas>
-	<input type="checkbox" value="180">
+	<input type="checkbox" id="180">
       </li>
       <li>
 	<canvas class="demo" id="10101101"></canvas>
-	<input type="checkbox" value="181">
+	<input type="checkbox" id="181">
       </li>
       <li>
 	<canvas class="demo" id="01101101"></canvas>
-	<input type="checkbox" value="182">
+	<input type="checkbox" id="182">
       </li>
       <li>
 	<canvas class="demo" id="11101101"></canvas>
-	<input type="checkbox" value="183">
+	<input type="checkbox" id="183">
       </li>
     </div>
     <div class="automata_layer">
       <li>
 	<canvas class="demo" id="00011101"></canvas>
-	<input type="checkbox" value="184">
+	<input type="checkbox" id="184">
       </li>
       <li>
 	<canvas class="demo" id="10011101"></canvas>
-	<input type="checkbox" value="185">
+	<input type="checkbox" id="185">
       </li>
       <li>
 	<canvas class="demo" id="01011101"></canvas>
-	<input type="checkbox" value="186">
+	<input type="checkbox" id="186">
       </li>
       <li>
 	<canvas class="demo" id="11011101"></canvas>
-	<input type="checkbox" value="187">
+	<input type="checkbox" id="187">
       </li>
       <li>
 	<canvas class="demo" id="00111101"></canvas>
-	<input type="checkbox" value="188">
+	<input type="checkbox" id="188">
       </li>
       <li>
 	<canvas class="demo" id="10111101"></canvas>
-	<input type="checkbox" value="189">
+	<input type="checkbox" id="189">
       </li>
       <li>
 	<canvas class="demo" id="01111101"></canvas>
-	<input type="checkbox" value="190">
+	<input type="checkbox" id="190">
       </li>
       <li>
 	<canvas class="demo" id="11111101"></canvas>
-	<input type="checkbox" value="191">
+	<input type="checkbox" id="191">
       </li>
     </div>
     <div class="automata_layer">
       <li>
 	<canvas class="demo" id="00000011"></canvas>
-	<input type="checkbox" value="192">
+	<input type="checkbox" id="192">
       </li>
       <li>
 	<canvas class="demo" id="10000011"></canvas>
-	<input type="checkbox" value="193">
+	<input type="checkbox" id="193">
       </li>
       <li>
 	<canvas class="demo" id="01000011"></canvas>
-	<input type="checkbox" value="194">
+	<input type="checkbox" id="194">
       </li>
       <li>
 	<canvas class="demo" id="11000011"></canvas>
-	<input type="checkbox" value="195">
+	<input type="checkbox" id="195">
       </li>
       <li>
 	<canvas class="demo" id="00100011"></canvas>
-	<input type="checkbox" value="196">
+	<input type="checkbox" id="196">
       </li>
       <li>
 	<canvas class="demo" id="10100011"></canvas>
-	<input type="checkbox" value="197">
+	<input type="checkbox" id="197">
       </li>
       <li>
 	<canvas class="demo" id="01100011"></canvas>
-	<input type="checkbox" value="198">
+	<input type="checkbox" id="198">
       </li>
       <li>
 	<canvas class="demo" id="11100011"></canvas>
-	<input type="checkbox" value="199">
+	<input type="checkbox" id="199">
       </li>
     </div>
     <div class="automata_layer">
       <li>
 	<canvas class="demo" id="00010011"></canvas>
-	<input type="checkbox" value="200">
+	<input type="checkbox" id="200">
       </li>
       <li>
 	<canvas class="demo" id="10010011"></canvas>
-	<input type="checkbox" value="201">
+	<input type="checkbox" id="201">
       </li>
       <li>
 	<canvas class="demo" id="01010011"></canvas>
-	<input type="checkbox" value="202">
+	<input type="checkbox" id="202">
       </li>
       <li>
 	<canvas class="demo" id="11010011"></canvas>
-	<input type="checkbox" value="203">
+	<input type="checkbox" id="203">
       </li>
       <li>
 	<canvas class="demo" id="00110011"></canvas>
-	<input type="checkbox" value="204">
+	<input type="checkbox" id="204">
       </li>
       <li>
 	<canvas class="demo" id="10110011"></canvas>
-	<input type="checkbox" value="205">
+	<input type="checkbox" id="205">
       </li>
       <li>
 	<canvas class="demo" id="01110011"></canvas>
-	<input type="checkbox" value="206">
+	<input type="checkbox" id="206">
       </li>
       <li>
 	<canvas class="demo" id="11110011"></canvas>
-	<input type="checkbox" value="207">
+	<input type="checkbox" id="207">
       </li>
     </div>
         <div class="automata_layer">
       <li>
 	<canvas class="demo" id="00001011"></canvas>
-	<input type="checkbox" value="208">
+	<input type="checkbox" id="208">
       </li>
       <li>
 	<canvas class="demo" id="10001011"></canvas>
-	<input type="checkbox" value="209">
+	<input type="checkbox" id="209">
       </li>
       <li>
 	<canvas class="demo" id="01001011"></canvas>
-	<input type="checkbox" value="210">
+	<input type="checkbox" id="210">
       </li>
       <li>
 	<canvas class="demo" id="11001011"></canvas>
-	<input type="checkbox" value="211">
+	<input type="checkbox" id="211">
       </li>
       <li>
 	<canvas class="demo" id="00101011"></canvas>
-	<input type="checkbox" value="212">
+	<input type="checkbox" id="212">
       </li>
       <li>
 	<canvas class="demo" id="10101011"></canvas>
-	<input type="checkbox" value="213">
+	<input type="checkbox" id="213">
       </li>
       <li>
 	<canvas class="demo" id="01101011"></canvas>
-	<input type="checkbox" value="214">
+	<input type="checkbox" id="214">
       </li>
       <li>
 	<canvas class="demo" id="11101011"></canvas>
-	<input type="checkbox" value="215">
+	<input type="checkbox" id="215">
       </li>
     </div>
     <div class="automata_layer">
       <li>
 	<canvas class="demo" id="00011011"></canvas>
-	<input type="checkbox" value="216">
+	<input type="checkbox" id="216">
       </li>
       <li>
 	<canvas class="demo" id="10011011"></canvas>
-	<input type="checkbox" value="217">
+	<input type="checkbox" id="217">
       </li>
       <li>
 	<canvas class="demo" id="01011011"></canvas>
-	<input type="checkbox" value="218">
+	<input type="checkbox" id="218">
       </li>
       <li>
 	<canvas class="demo" id="11011011"></canvas>
-	<input type="checkbox" value="219">
+	<input type="checkbox" id="219">
       </li>
       <li>
 	<canvas class="demo" id="00111011"></canvas>
-	<input type="checkbox" value="220">
+	<input type="checkbox" id="220">
       </li>
       <li>
 	<canvas class="demo" id="10111011"></canvas>
-	<input type="checkbox" value="221">
+	<input type="checkbox" id="221">
       </li>
       <li>
 	<canvas class="demo" id="01111011"></canvas>
-	<input type="checkbox" value="222">
+	<input type="checkbox" id="222">
       </li>
       <li>
 	<canvas class="demo" id="11111011"></canvas>
-	<input type="checkbox" value="223">
+	<input type="checkbox" id="223">
       </li>
     </div>
     <div class="automata_layer">
       <li>
 	<canvas class="demo" id="00000111"></canvas>
-	<input type="checkbox" value="224">
+	<input type="checkbox" id="224">
       </li>
       <li>
 	<canvas class="demo" id="10000111"></canvas>
-	<input type="checkbox" value="225">
+	<input type="checkbox" id="225">
       </li>
       <li>
 	<canvas class="demo" id="01000111"></canvas>
-	<input type="checkbox" value="226">
+	<input type="checkbox" id="226">
       </li>
       <li>
 	<canvas class="demo" id="11000111"></canvas>
-	<input type="checkbox" value="227">
+	<input type="checkbox" id="227">
       </li>
       <li>
 	<canvas class="demo" id="00100111"></canvas>
-	<input type="checkbox" value="228">
+	<input type="checkbox" id="228">
       </li>
       <li>
 	<canvas class="demo" id="10100111"></canvas>
-	<input type="checkbox" value="229">
+	<input type="checkbox" id="229">
       </li>
       <li>
 	<canvas class="demo" id="01100111"></canvas>
-	<input type="checkbox" value="230">
+	<input type="checkbox" id="230">
       </li>
       <li>
 	<canvas class="demo" id="11100111"></canvas>
-	<input type="checkbox" value="231">
+	<input type="checkbox" id="231">
       </li>
     </div>
     <div class="automata_layer">
       <li>
 	<canvas class="demo" id="00010111"></canvas>
-	<input type="checkbox" value="232">
+	<input type="checkbox" id="232">
       </li>
       <li>
 	<canvas class="demo" id="10010111"></canvas>
-	<input type="checkbox" value="233">
+	<input type="checkbox" id="233">
       </li>
       <li>
 	<canvas class="demo" id="01010111"></canvas>
-	<input type="checkbox" value="234">
+	<input type="checkbox" id="234">
       </li>
       <li>
 	<canvas class="demo" id="11010111"></canvas>
-	<input type="checkbox" value="235">
+	<input type="checkbox" id="235">
       </li>
       <li>
 	<canvas class="demo" id="00110111"></canvas>
-	<input type="checkbox" value="236">
+	<input type="checkbox" id="236">
       </li>
       <li>
 	<canvas class="demo" id="10110111"></canvas>
-	<input type="checkbox" value="237">
+	<input type="checkbox" id="237">
       </li>
       <li>
 	<canvas class="demo" id="01110111"></canvas>
-	<input type="checkbox" value="238">
+	<input type="checkbox" id="238">
       </li>
       <li>
 	<canvas class="demo" id="11110111"></canvas>
-	<input type="checkbox" value="239">
+	<input type="checkbox" id="239">
       </li>
     </div>
         <div class="automata_layer">
       <li>
 	<canvas class="demo" id="00001111"></canvas>
-	<input type="checkbox" value="240">
+	<input type="checkbox" id="240">
       </li>
       <li>
 	<canvas class="demo" id="10001111"></canvas>
-	<input type="checkbox" value="241">
+	<input type="checkbox" id="241">
       </li>
       <li>
 	<canvas class="demo" id="01001111"></canvas>
-	<input type="checkbox" value="242">
+	<input type="checkbox" id="242">
       </li>
       <li>
 	<canvas class="demo" id="11001111"></canvas>
-	<input type="checkbox" value="243">
+	<input type="checkbox" id="243">
       </li>
       <li>
 	<canvas class="demo" id="00101111"></canvas>
-	<input type="checkbox" value="244">
+	<input type="checkbox" id="244">
       </li>
       <li>
 	<canvas class="demo" id="10101111"></canvas>
-	<input type="checkbox" value="245">
+	<input type="checkbox" id="245">
       </li>
       <li>
 	<canvas class="demo" id="01101111"></canvas>
-	<input type="checkbox" value="246">
+	<input type="checkbox" id="246">
       </li>
       <li>
 	<canvas class="demo" id="11101111"></canvas>
-	<input type="checkbox" value="247">
+	<input type="checkbox" id="247">
       </li>
     </div>
     <div class="automata_layer">
       <li>
 	<canvas class="demo" id="00011111"></canvas>
-	<input type="checkbox" value="248">
+	<input type="checkbox" id="248">
       </li>
       <li>
 	<canvas class="demo" id="10011111"></canvas>
-	<input type="checkbox" value="249">
+	<input type="checkbox" id="249">
       </li>
       <li>
 	<canvas class="demo" id="01011111"></canvas>
-	<input type="checkbox" value="250">
+	<input type="checkbox" id="250">
       </li>
       <li>
 	<canvas class="demo" id="11011111"></canvas>
-	<input type="checkbox" value="251">
+	<input type="checkbox" id="251">
       </li>
       <li>
 	<canvas class="demo" id="00111111"></canvas>
-	<input type="checkbox" value="252">
+	<input type="checkbox" id="252">
       </li>
       <li>
 	<canvas class="demo" id="10111111"></canvas>
-	<input type="checkbox" value="253">
+	<input type="checkbox" id="253">
       </li>
       <li>
 	<canvas class="demo" id="01111111"></canvas>
-	<input type="checkbox" value="254">
+	<input type="checkbox" id="254">
       </li>
       <li>
 	<canvas class="demo" id="11111111"></canvas>
-	<input type="checkbox" value="255">
+	<input type="checkbox" id="255">
       </li>
     </div>
   </ul>
@@ -1099,5 +1103,6 @@
 
 <footer>
   <script src="/static/js/demo.js"> </script>
+  <script src="/static/js/builder.js"> </script>
 </footer>
 {% endblock %}

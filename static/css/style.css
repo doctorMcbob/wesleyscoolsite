@@ -33,5 +33,23 @@ body {
 }
 
 .automata_layer li {
+    display: inline-block;
+}
+
+.automata_layer li canvas {
+    display: block;
+}
+
+.automata_layer li input {
+    width: 15px;
+    height: 15px;
+    margin: auto;
+    display: block;
+}
+
+#rule_holder {
+    display: inline;
+}
+#rule_holder p {
     display: inline;
 }
