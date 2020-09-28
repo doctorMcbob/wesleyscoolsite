@@ -1,6 +1,6 @@
 // ** ** ** ** ** SET UP ** ** ** ** **
 var W, H, PW;
-W = 32; H = 32;
+W = 48; H = 32;
 PW = 16;
 
 var canvas = document.getElementById("canvas");
@@ -28,6 +28,21 @@ function choice(list) { return list[randint(0, list.length-1)] }
 function remove(item, list) {
     var i = list.indexOf(item);
     list.splice(i, 1);
+}
+
+function shuffle(list) {
+    var counter = list.length;
+
+    while (counter > 0) {
+	var idx = randint(0, list.length - 1);
+	counter--;
+	
+	var temp = list[counter];
+	list[counter] = list[idx];
+	list[idx] = temp;
+    }
+
+    return list;
 }
 
 function blank_sheet() {
@@ -176,6 +191,34 @@ function depth_first () {
     return { maze: maze, ent: ent };
 }
 
+function depth_and_shuffle () {
+    var maze = blank_sheet();
+    var ent = { X : randint(0, W-1), Y : randint(0, H-1) };
+    var heads = [ ent ];
+    var marked = [];
+
+    var counter = (W + H) / 3;
+    
+    while ( heads.length != 0 || marked.length < (W * H) ) {
+	
+	if ( heads.length == 0 ) {
+	    var item = choice(marked);
+	    heads.push( item );
+	    remove(item, marked);
+	}
+
+	if (counter <= 0) {
+	    counter = (W + H) / 3;
+	    shuffle(heads);
+	}
+	position = heads.pop();
+	slot = get(maze, position.X, position.Y);
+
+	resolve_slot(maze, slot, position, heads, marked);
+    }
+    return { maze: maze, ent: ent };
+}
+
 
 // ** ** ** ** ** DRAWING ** ** ** ** ** 
 function draw_maze(maze, ent) {
@@ -183,7 +226,7 @@ function draw_maze(maze, ent) {
     ctx.fillStyle = "#000000";
     ctx.fillRect(0, 0, W*PW, H*PW);
     for (Y=0; Y<H; Y++) {
-	for (X=0; X<H; X++) {
+	for (X=0; X<W; X++) {
 	    if (X == ent.X && Y == ent.Y) {
 		ctx.fillStyle = "#FF0000";
 	    } else {
@@ -211,5 +254,20 @@ function draw_maze(maze, ent) {
     }
 }
 
-var MAZE = depth_first();
-draw_maze(MAZE.maze, MAZE.ent);
+// ** ** ** ** ** BUTTONS ** ** ** ** ** 
+function new_breadth() {
+    var MAZE = breadth_first();
+    draw_maze(MAZE.maze, MAZE.ent);
+}
+
+function new_depth() {
+    var MAZE = depth_first();
+    draw_maze(MAZE.maze, MAZE.ent);
+}
+
+function new_depth_and_shuffle() {
+    var MAZE = depth_and_shuffle();
+    draw_maze(MAZE.maze, MAZE.ent);
+}
+
+new_depth();

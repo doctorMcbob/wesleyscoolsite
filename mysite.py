@@ -48,6 +48,9 @@ def automata_about(reqiest):
 def automata_builder(request):
     return Response(tempenv.get_template("automata_builder.html").render())
 
+def maze(request):
+    return Response(tempenv.get_template("maze.html").render())
+
 if __name__ == "__main__":
     with Configurator() as config:
         config.add_route("main", "/")
@@ -62,6 +65,8 @@ if __name__ == "__main__":
         config.add_view(automata_about, route_name="automata about")
         config.add_route("automata builder", "/automata/builder")
         config.add_view(automata_builder, route_name="automata builder")
+        config.add_route("maze", "/maze")
+        config.add_view(maze, route_name="maze")
 
         config.add_static_view(name="/static", path="mysite:/static/")
         config.add_static_view(name="/static/css", path="mysite:/static/css/")

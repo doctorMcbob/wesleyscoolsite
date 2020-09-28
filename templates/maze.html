@@ -1,7 +1,14 @@
-<!DOCTYPE html>
-<html>
-  <body>
-    <canvas id="canvas"></canvas>
-    <script src="maze.js"></script>
-  </body>
-</html>
+{% extends "base.html" %}
+
+{% block title %} Maze {% endblock %}
+
+{% block content %}
+<br>
+<canvas id="canvas"></canvas>
+<br>
+<button onclick="new_breadth()"> Breadth First </button>
+<button onclick="new_depth()"> Depth First </button>
+<button onclick="new_depth_and_shuffle()"> Depth and Shuffle </button>
+
+<script src="/static/js/maze.js"></script>
+{% endblock %}
