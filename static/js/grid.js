@@ -26,6 +26,17 @@ function get_rule() {
 }
 function pack(x, y) {return x.toString() + "," + y.toString()}
 function tobin(n, b) {return ('0'.repeat(b) + n.toString(2)).substr(-b)}
+function from8bits(b) {
+    var n = 0;
+    var base = 1
+    for (var i=0; i < b.length; i++) {
+	if (b[i] == "1") {
+	    n += base;
+	}
+	base *= 2;
+    }
+    return n;
+}
 
 function nbrs(cells, x, y, W, H) {
     var ret = "";
@@ -66,7 +77,7 @@ function apply_rule(W, H, rule, cells) {
     next_gen = new Set();
     for (var y=0; y <= H; y++) {
         for (var x=0; x <= W; x++) {
-            var diget = parseInt(nbrs(cells, x, y, W, H), 2);
+            var diget = from8bits(nbrs(cells, x, y, W, H), 2);
 	    if (rule[diget] == '1') {
                 next_gen.add(pack(x, y))
 	    }
