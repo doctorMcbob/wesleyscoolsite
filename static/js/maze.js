@@ -83,7 +83,7 @@ function resolve_slot(maze, slot, position, heads, marked) {
 		position_in(marked, x_, y_) == false) {
 		
 		get(maze, x_, y_).S = 1;
-		heads.push( { X: x_, Y: y_ } );
+		heads.push( { X: x_, Y: y_, D: position.D + 1} );
 	    }  else if ( get(maze, x_, y_).S == 0 ) {
 		slot.N = 0;
 	    }
@@ -100,7 +100,7 @@ function resolve_slot(maze, slot, position, heads, marked) {
 		position_in(marked, x_, y_) == false) {
 		
 		get(maze, x_, y_).W = 1;
-		heads.push( { X: x_, Y: y_ } );
+		heads.push( { X: x_, Y: y_, D: position.D + 1 } );
 	    }  else if ( get(maze, x_, y_).W == 0 ) {
 		slot.E = 0;
 	    }
@@ -117,7 +117,7 @@ function resolve_slot(maze, slot, position, heads, marked) {
 		position_in(marked, x_, y_) == false) {
 		
 		get(maze, x_, y_).N = 1;
-		heads.push( { X: x_, Y: y_ } );
+		heads.push( { X: x_, Y: y_, D: position.D + 1 } );
 	    }  else if ( get(maze, x_, y_).N == 0 ) {
 		slot.S = 0;
 	    }
@@ -134,7 +134,7 @@ function resolve_slot(maze, slot, position, heads, marked) {
 		position_in(marked, x_, y_) == false) {
 		
 		get(maze, x_, y_).E = 1;
-		heads.push( { X: x_, Y: y_ } );
+		heads.push( { X: x_, Y: y_, D: position.D + 1 } );
 	    }  else if ( get(maze, x_, y_).E == 0 ) {
 		slot.W = 0;
 	    }
@@ -148,10 +148,12 @@ function resolve_slot(maze, slot, position, heads, marked) {
 // ** ** ** ** ** MAZE ALGORITHMS ** ** ** ** **
 function breadth_first () {
     var maze = blank_sheet();
-    var ent = { X : randint(0, W-1), Y : randint(0, H-1) };
+    var ent = { X : randint(0, W-1), Y : randint(0, H-1), D: 0 };
     var heads = [ ent ];
     var marked = [];
 
+    var ext = ent;
+    
     while ( heads.length != 0 || marked.length < (W * H) ) {
 	if ( heads.length == 0 ) {
 	    var item = choice(marked);
@@ -161,20 +163,26 @@ function breadth_first () {
 
 	position = heads[0];
 	heads.shift();
+
+	if (position.D > ext.D) {
+	    ext = position;
+	}
+	
 	slot = get(maze, position.X, position.Y);
 
 	resolve_slot(maze, slot, position, heads, marked);
     }
 
-    return { maze: maze, ent: ent };
+    return { maze: maze, ent: ent, ext: ext};
 }
 
 function depth_first () {
     var maze = blank_sheet();
-    var ent = { X : randint(0, W-1), Y : randint(0, H-1) };
+    var ent = { X : randint(0, W-1), Y : randint(0, H-1), D : 0 };
     var heads = [ ent ];
     var marked = [];
 
+    var ext = ent;
     while ( heads.length != 0 || marked.length < (W * H) ) {
 	
 	if ( heads.length == 0 ) {
@@ -184,19 +192,26 @@ function depth_first () {
 	}
 
 	position = heads.pop();
+
+	if (position.D > ext.D) {
+	    ext = position;
+	}
+	
 	slot = get(maze, position.X, position.Y);
 
 	resolve_slot(maze, slot, position, heads, marked);
     }
-    return { maze: maze, ent: ent };
+    return { maze: maze, ent: ent, ext: ext };
 }
 
 function depth_and_shuffle () {
     var maze = blank_sheet();
-    var ent = { X : randint(0, W-1), Y : randint(0, H-1) };
+    var ent = { X : randint(0, W-1), Y : randint(0, H-1), D : 0 };
     var heads = [ ent ];
     var marked = [];
 
+    var ext = ent;
+    
     var counter = (W + H) / 3;
     
     while ( heads.length != 0 || marked.length < (W * H) ) {
@@ -212,23 +227,32 @@ function depth_and_shuffle () {
 	    shuffle(heads);
 	}
 	position = heads.pop();
+
+	if (position.D > ext.D) {
+	    ext = position;
+	}
+	
 	slot = get(maze, position.X, position.Y);
 
 	resolve_slot(maze, slot, position, heads, marked);
     }
-    return { maze: maze, ent: ent };
+    return { maze: maze, ent: ent, ext: ext };
 }
 
 
 // ** ** ** ** ** DRAWING ** ** ** ** ** 
-function draw_maze(maze, ent) {
+function draw_maze(maze, ent, ext, player) {
     var col, slot;
     ctx.fillStyle = "#000000";
     ctx.fillRect(0, 0, W*PW, H*PW);
     for (Y=0; Y<H; Y++) {
 	for (X=0; X<W; X++) {
-	    if (X == ent.X && Y == ent.Y) {
+	    if (X == player.X && Y == player.Y) {
+		ctx.fillStyle = "#00FF00";
+	    } else if (X == ent.X && Y == ent.Y) {
 		ctx.fillStyle = "#FF0000";
+	    } else if (X == ext.X && Y == ext.Y) {
+		ctx.fillStyle = "#0000FF";
 	    } else {
 		ctx.fillStyle = "#FFFFFF";
 	    }
@@ -254,20 +278,72 @@ function draw_maze(maze, ent) {
     }
 }
 
+
 // ** ** ** ** ** BUTTONS ** ** ** ** ** 
+var MAZE = depth_first();
+var POS = { X: MAZE.ent.X, Y: MAZE.ent.Y };
+draw_maze(MAZE.maze, MAZE.ent, MAZE.ext, POS);
+
+function move_left() {
+    if ( get(MAZE.maze, POS.X, POS.Y).W == 1 ) {
+	POS.X -= 1;
+	draw_maze(MAZE.maze, MAZE.ent, MAZE.ext, POS);
+    }
+}
+function move_right() {
+    if ( get(MAZE.maze, POS.X, POS.Y).E == 1 ) {
+	POS.X += 1;
+	draw_maze(MAZE.maze, MAZE.ent, MAZE.ext, POS);
+    }
+}
+function move_up() {
+    if ( get(MAZE.maze, POS.X, POS.Y).N == 1 ) {
+	POS.Y -= 1;
+	draw_maze(MAZE.maze, MAZE.ent, MAZE.ext, POS);
+    }
+}
+function move_down() {
+    if ( get(MAZE.maze, POS.X, POS.Y).S == 1 ) {
+	POS.Y += 1;
+	draw_maze(MAZE.maze, MAZE.ent, MAZE.ext, POS);
+    }
+}
+
+
 function new_breadth() {
-    var MAZE = breadth_first();
-    draw_maze(MAZE.maze, MAZE.ent);
+    MAZE = breadth_first();
+    POS = { X: MAZE.ent.X, Y: MAZE.ent.Y };
+    draw_maze(MAZE.maze, MAZE.ent, MAZE.ext, POS);
 }
 
 function new_depth() {
-    var MAZE = depth_first();
-    draw_maze(MAZE.maze, MAZE.ent);
+    MAZE = depth_first();
+    POS = { X: MAZE.ent.X, Y: MAZE.ent.Y };
+    draw_maze(MAZE.maze, MAZE.ent, MAZE.ext, POS);
 }
 
 function new_depth_and_shuffle() {
-    var MAZE = depth_and_shuffle();
-    draw_maze(MAZE.maze, MAZE.ent);
+    MAZE = depth_and_shuffle();
+    POS = { X: MAZE.ent.X, Y: MAZE.ent.Y };
+    draw_maze(MAZE.maze, MAZE.ent, MAZE.ext, POS);
 }
 
-new_depth();
+// ** ** ** ** ** KEYBOARD EVENTS ** ** ** ** **
+
+document.onkeydown = function checkKey (e) {
+    e = e || window.event;
+    switch (e.keyCode) {
+    case 38:
+	move_up();
+	break;
+    case 40:
+	move_down();
+	break;
+    case 37:
+	move_left();
+	break;
+    case 39:
+	move_right();
+	break;
+    }
+}
