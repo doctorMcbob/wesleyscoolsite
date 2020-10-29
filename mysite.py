@@ -51,6 +51,9 @@ def automata_builder(request):
 def maze(request):
     return Response(tempenv.get_template("maze.html").render())
 
+def coolpic(request):
+    return Response(tempenv.get_template("coolpic.html").render())
+
 if __name__ == "__main__":
     with Configurator() as config:
         config.add_route("main", "/")
@@ -68,9 +71,13 @@ if __name__ == "__main__":
         config.add_route("maze", "/maze")
         config.add_view(maze, route_name="maze")
 
+        config.add_route("coolpic", "/coolpic")
+        config.add_view(coolpic, route_name="coolpic")
+
         config.add_static_view(name="/static", path="mysite:/static/")
         config.add_static_view(name="/static/css", path="mysite:/static/css/")
         config.add_static_view(name="/static/js", path="mysite:/static/js/")
+        config.add_static_view(name="/static/img", path="mysite:/static/img/")
 
         config.scan()
         app = config.make_wsgi_app()
