@@ -25,7 +25,8 @@ function update_rule() {
 	    rule += "0";
 	}
     }
-    document.getElementById("rule").innerHTML = hash_to_hex(rule);
+    var hex = hash_to_hex(rule);
+    document.getElementById("rule").innerHTML = '<a href="/automata/rule/'+hex+'">'+hex+'</a>'
 }
 
 var checkboxes = document.getElementsByTagName("input");
