@@ -106,8 +106,12 @@ function dehash_to_bin(hash) {
 
 cells = fresh_board(W, H);
 draw_board(cells);
-rule = get_rule();
-document.getElementById("rule").value = hash_to_hex(rule);
+rule = dehash_to_bin(document.getElementById("rule").value);
+
+if (rule == "") {
+    rule = get_rule();
+    document.getElementById("rule").value = hash_to_hex(rule);
+}
 
 /*
 Buttons ~

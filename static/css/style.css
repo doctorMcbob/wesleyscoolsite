@@ -53,3 +53,8 @@ body {
 #rule_holder p {
     display: inline;
 }
+
+.autobutton {
+    width: 156px;
+    height: 64px;
+}
