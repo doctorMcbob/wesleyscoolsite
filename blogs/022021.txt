@@ -17,7 +17,7 @@ I'm going to get so good, you have no idea.
 I have a few ideas for websites, I just bought rotationcomics.com
 Hopefully that happens soon.
 
-I made a proof of concept here <a href=https://github.com/doctorMcbob/hermes>I'm calling it hermes/a>
+I made a proof of concept here <a href=https://github.com/doctorMcbob/hermes>I'm calling it hermes</a>
 it's a socket server built into a python generator
 
 Thanks for reading,
