@@ -5,21 +5,22 @@
 {% block content %}
 <div id="above">
   <div>
-    <a href="automata/about">ABOUT</a>
-    <a href="automata/builder">BUILDER</a>
+    <a href="/automata/about">ABOUT</a>
+    <a href="/automata/builder">BUILDER</a>
   </div>
   <div>
-    Rule: 
-    <input type="text" id="rule"></input>
+    Rule:
+    <input type="text" id="rule" value="{{ rule }}"></input>
     <button style="display:inline;" type="button" id="set_rule" onclick="set_rule()">
       Set Rule
     </button>
   </div>
 </div>
+<br>
 <canvas id="board"></canvas>
 <br>
-<button type="button" id="play" onclick="play()"> Play </button>
-<button type="button" id="next" onclick="next()"> Next </button>
-<button type="button" id="new" onclick="newrule()"> New </button>
+<button class="autobutton" type="button" id="play" onclick="play()"> Play </button>
+<button class="autobutton" type="button" id="next" onclick="next()"> Next </button>
+<button class="autobutton" type="button" id="new" onclick="newrule()"> New </button>
 <script src="/static/js/grid.js"></script>
 {% endblock %}

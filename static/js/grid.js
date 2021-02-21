@@ -8,7 +8,7 @@ To do list
 
 var PW, W, H;
 PW = 16;
-W = 64; H = 32;
+W = 33; H = 33;
 
 var interval = null;
 var canvas = document.getElementById("board");
@@ -69,7 +69,7 @@ function draw_board(cells) {
 
 function fresh_board(W, H) {
     cells = new Set();
-    cells.add(pack(W/2, H/2));
+    cells.add(pack(16, 16));
     return cells
 }
 
@@ -106,10 +106,12 @@ function dehash_to_bin(hash) {
 
 cells = fresh_board(W, H);
 draw_board(cells);
-rule = get_rule();
-//bint = BigInt('0b'+rule);
-//hash = bint.toString(36);
-document.getElementById("rule").value = hash_to_hex(rule);
+rule = dehash_to_bin(document.getElementById("rule").value);
+
+if (rule == "") {
+    rule = get_rule();
+    document.getElementById("rule").value = hash_to_hex(rule);
+}
 
 /*
 Buttons ~
@@ -119,8 +121,6 @@ function newrule() {
     cells = fresh_board(W, H);
     draw_board(cells);
     rule = get_rule();
-    //bint = BigInt('0b'+rule);
-    //hash = bint.toString(36);
     document.getElementById("rule").value = hash_to_hex(rule);
 }
 
