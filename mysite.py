@@ -57,6 +57,11 @@ def maze(request):
 def coolpic(request):
     return Response(tempenv.get_template("coolpic.html").render())
 
+def get_LURD(request):
+    with open("LURD.py") as f:
+        LURD = f.read()
+    return Response(LURD)
+
 if __name__ == "__main__":
     with Configurator() as config:
         config.add_route("main", "/")
@@ -79,6 +84,9 @@ if __name__ == "__main__":
         config.add_route("coolpic", "/coolpic")
         config.add_view(coolpic, route_name="coolpic")
 
+        config.add_route("LURD", "/LURD")
+        config.add_view(get_LURD, route_name="LURD")
+        
         config.add_static_view(name="/static", path="mysite:/static/")
         config.add_static_view(name="/static/css", path="mysite:/static/css/")
         config.add_static_view(name="/static/js", path="mysite:/static/js/")

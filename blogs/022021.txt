@@ -1,0 +1,24 @@
+im thinking i should revamp the site...
+
+I got a programming job, Jr Backend developer for Abe AI
+
+Finally!
+
+I'm really excited to grow as a developer. I'll be flying high before you know it.
+
+The pay raise is nice, it hasn't really hit me yet. But that's not the point.
+
+I'm just excited to finally be doing what I love for a living.
+
+I'm going to get so good, you have no idea.
+
+-------------
+
+I have a few ideas for websites, I just bought rotationcomics.com
+Hopefully that happens soon.
+
+I made a proof of concept here <a href=https://github.com/doctorMcbob/hermes>I'm calling it hermes</a>
+it's a socket server built into a python generator
+
+Thanks for reading,
+-WXLY
