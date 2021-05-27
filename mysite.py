@@ -1,3 +1,4 @@
+
 #mysite.py
 """
 Personal website, should act as portfolio and blog
@@ -41,6 +42,9 @@ def a_blog(request):
 def automata(request):
     return Response(tempenv.get_template("automata.html").render(rule=""))
 
+def lifelike(request):
+    return Response(tempenv.get_template("lifelike.html").render())
+
 def a_automata(request):
     rule = request.matchdict["rule"]
     return Response(tempenv.get_template("automata.html").render(rule=rule))
@@ -66,10 +70,12 @@ if __name__ == "__main__":
     with Configurator() as config:
         config.add_route("main", "/")
         config.add_view(main, route_name="main")
+
         config.add_route("blog", "/blog")
         config.add_view(blog_response, route_name="blog")
         config.add_route("a blog", "/blog/{date}")
         config.add_view(a_blog, route_name="a blog")
+
         config.add_route("automata", "/automata")
         config.add_view(automata, route_name="automata")
         config.add_route("a automata", "/automata/rule/{rule}")
@@ -80,6 +86,10 @@ if __name__ == "__main__":
         config.add_view(automata_builder, route_name="automata builder")
         config.add_route("maze", "/maze")
         config.add_view(maze, route_name="maze")
+
+
+        config.add_route("lifelike", "/lifelike")
+        config.add_view(lifelike, route_name="lifelike")
 
         config.add_route("coolpic", "/coolpic")
         config.add_view(coolpic, route_name="coolpic")
