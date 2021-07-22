@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %} Turing Machine {% endblock %}
+
+{% block content %}
+<canvas id="board"></canvas><br>
+<canvas id="rule"></canvas><br>
+<div class="spacebelow">
+  <button onclick="updateRule()">Randomize Rule</button>
+  <button onclick="nextButton()">Apply Rule</button>
+  <button onclick="resetBoard()">Reset Board</button>
+  <button onclick="playToggle()">Play/Stop</button>
+  <button onclick="playGame()">Game</button>
+  <input onchange="updateStates(this.value)" min="1" max="8" value="3" type="range" id="states"></input>
+</div>
+<script type="text/javascript" src="/static/js/turing.js"></script>
+{% endblock%}
+
+{% block footer %}
+{% endblock %}

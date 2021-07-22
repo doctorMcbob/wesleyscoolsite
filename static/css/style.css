@@ -69,3 +69,7 @@ content {
     height: 64px;
     width: 64px;
 }
+
+.spacebelow {
+    margin-bottom: 50px;
+}

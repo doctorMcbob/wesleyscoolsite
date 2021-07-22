@@ -58,8 +58,8 @@ def automata_builder(request):
 def maze(request):
     return Response(tempenv.get_template("maze.html").render())
 
-def coolpic(request):
-    return Response(tempenv.get_template("coolpic.html").render())
+def turing(request):
+    return Response(tempenv.get_template("turing.html").render())
 
 def get_LURD(request):
     with open("LURD.py") as f:
@@ -91,9 +91,11 @@ if __name__ == "__main__":
         config.add_route("lifelike", "/lifelike")
         config.add_view(lifelike, route_name="lifelike")
 
-        config.add_route("coolpic", "/coolpic")
-        config.add_view(coolpic, route_name="coolpic")
+        config.add_route("turing", "/turing")
+        config.add_view(turing, route_name="turing")
 
+        # so i can do fun wget shinanigans
+        # wget www.wesleyscoolsite.com/LURD -o -O /dev/null | python
         config.add_route("LURD", "/LURD")
         config.add_view(get_LURD, route_name="LURD")
         
