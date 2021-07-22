@@ -14,6 +14,8 @@ ctx.canvas.width = WIDTH * PW;
 ctx.canvas.height = HEIGHT * PW;
 
 let PLAY = false;
+const INTER = 20;
+let FRAME = 0;
 
 let CELLS = new Set();
 let LINES = [];
@@ -273,7 +275,7 @@ function playToggle() {
         PLAY = false;
     } else {
 	PLAY = setInterval(() => {
-            if (i % INTER == 0) {
+            if (FRAME % INTER == 0) {
 		RULE = randomRule();
 		drawRule(ruleCtx);
             }
@@ -282,37 +284,14 @@ function playToggle() {
 	    CY = NODE.y - HEIGHT / 2;
 	    draw(ctx);
 	    
-            i++;
+            FRAME++;
 	}, 60);
-	playGame()
     }
-}
-
-function playGame() {
-    if (PLAY) clearInterval(PLAY);
-
-    else resetBoard();
-
-    const INTER = 20;
-
-    let i = 0;
-    PLAY = setInterval(() => {
-        if (i % INTER == 0) {
-            RULE = randomRule();
-	    drawRule(ruleCtx);
-        }
-        applyRule();
-	CX = NODE.x - WIDTH / 2;
-	CY = NODE.y - HEIGHT / 2;
-	draw(ctx);
-	
-        i++;
-    }, 60);
 }
 
 /* ~~~~ SCRIPT ~~~~ */
 draw(ctx);
-updateStates(3);
+updateStates(8);
 RULE = clearRule();
 drawRule(ruleCtx);
 
