@@ -2,7 +2,6 @@ html, body {
     text-align: center;
     background-color: lightblue;
     height: 100%;
-    overflow: auto;
 }
 
 content {
