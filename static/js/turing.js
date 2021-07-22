@@ -264,6 +264,7 @@ function resetBoard() {
 
 function updateStates(value) {
     STATES = parseInt(value);
+    resetBoard();
 }
 
 function playToggle() {
@@ -271,21 +272,29 @@ function playToggle() {
         clearInterval(PLAY);
         PLAY = false;
     } else {
-        PLAY = setInterval(() => {
+	PLAY = setInterval(() => {
+            if (i % INTER == 0) {
+		RULE = randomRule();
+		drawRule(ruleCtx);
+            }
             applyRule();
 	    CX = NODE.x - WIDTH / 2;
 	    CY = NODE.y - HEIGHT / 2;
 	    draw(ctx);
-        }, 60);
+	    
+            i++;
+	}, 60);
+	playGame()
     }
 }
 
 function playGame() {
     if (PLAY) clearInterval(PLAY);
-    
+
+    else resetBoard();
+
     const INTER = 20;
 
-    resetBoard();
     let i = 0;
     PLAY = setInterval(() => {
         if (i % INTER == 0) {
