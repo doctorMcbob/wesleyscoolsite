@@ -16,7 +16,9 @@ thesis:
  . the ORDER will turn the NODES POSITION ON or OFF
  . the ORDER will move the NODE to an EXIT or adjacent POSITION
 
-as for this specific implementation, the BOARD is a set of positions but since javascript
+
+   ~~~~ THIS IMPLEMENTATION ~~~~
+the BOARD is a set of positions but since javascript
   only lets you store two positions in an array which doesnt represent a position to me
   i stored positions as strings for example (2, 3) would be "2,3"
 
@@ -41,7 +43,6 @@ RULE[ ON/OFF, STATE ] = EXIT, STATE, ON/OFF
     5 6 7
     @ : NODE POSITION
   )
-
 
 I wrote a little game where the RULE is shuffled after every 20 frames
 
