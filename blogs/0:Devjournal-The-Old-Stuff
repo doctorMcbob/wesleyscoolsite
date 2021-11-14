@@ -1,0 +1,118 @@
+<h3>
+Its finally happening
+</h3>
+
+<p> I'm addresing the fact that my blog is garbage </p>
+<p> As part of that im moving the entirety of the blog here </p>
+
+<ul>
+	<li>
+--- 06 18 20 ---
+
+Wow my very first blog entry. I wonder how I'll look back at this.
+
+I'm still figuring out how I want the blog to work on the backend.
+
+Right now I'm saving the blog entry as MMDDYY.txt in a folder called 'blogs'
+
+I'll load them with python, and put links up for each blog post.
+
+How will I handle images and such, I wonder.
+
+How fun!
+
+June 18 2020
+-Wesley 
+	</li>
+	<li>
+--- 06 20 20 ---
+
+I transcribed my cellular automata from python to javascript for the site.
+Pretty fun, and nice to have a link to share with people. Im going to keep working on it.
+
+I'd like to add a 'rule builder' of some sort. With a graphic visual for all 256 permutations...
+It will be pretty big...
+
+I also need to write a loader, shouldn't be too hard. Not sure if I'll do it on the front end or back end.
+maybe automata/[somerule] will load a rule so you can send someone a rule.
+
+June 20 2020
+-Wesley
+
+	</li>
+	<li>
+--- 08 21 20 ---
+
+I just moved the site to my home server! No more AWS, you're in my house right now.
+
+It's pretty old parts, the processor was only 35 dollars...
+
+What a fun project. I'm brainstorming some more javascript projects to whip up on here.
+
+Thanks for reading nerds.
+
+08/21/2020
+-Wesley
+
+	</li>
+	<li>
+--- 09 26 10 ---
+
+Its been a while!
+
+I decided to finally add a rule builder to the cellular automata on the cite.
+
+I also finally added a rule loader to go along with it.
+
+I really should add some documentation, but for now I'm happy with just a functional tool to play with.
+
+I have more fun stuff for the site coming through the pipeline, Im transcribing my <a href="https://github.com/doctorMcbob/mazes/">maze algorithm</a> into javascript. Its gonna to be great.
+
+Thanks for reading, whoever you are.
+	</li>
+	<li>
+--- 02 20 21 ---
+
+im thinking i should revamp the site...
+
+I got a programming job, Jr Backend developer for Abe AI
+
+Finally!
+
+I'm really excited to grow as a developer. I'll be flying high before you know it.
+
+The pay raise is nice, it hasn't really hit me yet. But that's not the point.
+
+I'm just excited to finally be doing what I love for a living.
+
+I'm going to get so good, you have no idea.
+
+-------------
+
+I have a few ideas for websites, I just bought rotationcomics.com
+Hopefully that happens soon.
+
+I made a proof of concept here <a href=https://github.com/doctorMcbob/hermes>I'm calling it hermes</a>
+it's a socket server built into a python generator
+
+Thanks for reading,
+-WXLY
+
+	</li>
+	<li>
+--- 05 26 21 ---
+
+Yes I know the blogs are out of order. Im going to redo this i swear.
+
+I just added a pretty cool feature to the site, a javascript Life Like cellular automata builder.
+<a href="/lifelike">check it out</a>
+
+I originally made this as an NFT but I kindof stepped out of that game,
+I sold all my crypto for about 2 grand. A pretty good gain for just goofing around.
+
+Hoping to do more for the site soon, we'll see.
+
+Thanks for reading nerds, please check out the life like builder!
+-WXLY
+	</li>
+</ul>

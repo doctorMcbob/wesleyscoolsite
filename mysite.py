@@ -1,8 +1,5 @@
-
-#mysite.py
 """
-Personal website, should act as portfolio and blog
-lets try to get some cool javascript up
+how did you get in here MonkaW
 """
 import waitress
 from pyramid.config import Configurator
@@ -13,31 +10,34 @@ from jinja2 import Environment, PackageLoader, select_autoescape
 import os
 
 PATH = os.getcwd()
+BLOGS = {}
 
 tempenv = Environment(
     loader=PackageLoader("mysite", "templates"),
     autoescape=select_autoescape(['html', 'xml'])
 )
 
+def load_blogs():
+    blogs = {}
+    blogpath = PATH + "/blogs/"
+    filenames = [f for f in os.listdir(blogpath) if os.path.isfile(blogpath+f)]
+    for filename in filenames:
+        with open(blogpath + filename, "r") as f:
+            blogs[filename] = f.read()
+    return blogs
+
 def main(request):
     return Response(tempenv.get_template("main.html").render())
 
 def blog_response(request):
-    blogpath = PATH + "/blogs/"
-    blogs = [f for f in os.listdir(blogpath) if os.path.isfile(blogpath+f)]
-    for i in range(len(blogs)):
-        blogs[i] = blogs[i][:blogs[i].index(".")]
+    blogs = list(BLOGS.keys())
     return Response(tempenv.get_template("blog.html").render(blogs=blogs))
 
 def a_blog(request):
-    date = request.matchdict['date']
-    blogpath = PATH + "/blogs/" + date + ".txt"
-    try:
-        with open(blogpath, "r") as f:
-            blog = f.read()
-    except:
+    name = request.matchdict['name']
+    if name not in BLOGS:
         return blog_response(request)
-    return Response(tempenv.get_template("a_blog.html").render(date=date, blog=blog))
+    return Response(tempenv.get_template("a_blog.html").render(blog=BLOGS[name]))
 
 def automata(request):
     return Response(tempenv.get_template("automata.html").render(rule=""))
@@ -67,13 +67,14 @@ def get_LURD(request):
     return Response(LURD)
 
 if __name__ == "__main__":
+    BLOGS = load_blogs()
     with Configurator() as config:
         config.add_route("main", "/")
         config.add_view(main, route_name="main")
 
         config.add_route("blog", "/blog")
         config.add_view(blog_response, route_name="blog")
-        config.add_route("a blog", "/blog/{date}")
+        config.add_route("a blog", "/blog/{name}")
         config.add_view(a_blog, route_name="a blog")
 
         config.add_route("automata", "/automata")
@@ -94,8 +95,8 @@ if __name__ == "__main__":
         config.add_route("turing", "/turing")
         config.add_view(turing, route_name="turing")
 
-        # so i can do fun wget shinanigans
-        # wget www.wesleyscoolsite.com/LURD -o -O /dev/null | python
+        # so i can do fun curl shinanigans
+        # curl https://www.wesleyscoolsite.com/LURD -o -O /dev/null | python
         config.add_route("LURD", "/LURD")
         config.add_view(get_LURD, route_name="LURD")
         

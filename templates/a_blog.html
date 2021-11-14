@@ -1,12 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %} Blog {{ date }} {% endblock %}
+{% block title %} Blog {{  name }} {% endblock %}
 
 {% block content %}
-<h1> Blog from {{ date }} </h1>
-
 <div class="blogpost">
   {{ blog|safe }}
 </div>
-
 {% endblock %}

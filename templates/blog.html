@@ -4,10 +4,11 @@
 
 {% block content %}
 <h1> Blog </h1>
-<p> MMDDYY </p>
+<p> im fixing this in some regard </p>
+<p> worry not my intrusive little visitors </p>
 <ul id="bloglist">
   {% for blog in blogs %}
-  <li class="blogdate"> <a href="/blog/{{ blog }}"> {{ blog }} </a> </li>
+  <li class="blogname"> <a href="/blog/{{ blog }}"> {{ blog }} </a> </li>
   {% endfor %}
 </ul>
 {% endblock %}
