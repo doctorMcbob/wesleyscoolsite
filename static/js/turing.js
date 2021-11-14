@@ -1,3 +1,54 @@
+/* ~~~~ TURING by wxly ~~~~ 
+
+Okay what the hell am i looking at.
+
+This is a procedural generative system akin to cellular automation.
+
+thesis:
+
+ . the NODE sits on a POSITION and has a STAE and a RULE.
+ . the BOARD is an infinite plane where POSITIONS can either be ON or OFF.
+
+ . the POSITION is (x, y) though you could implement this on any number of dimensions
+ . the STATE is an integer between 0 and N
+ . the RULE has an ORDER for what to do for every possible STATE
+ . the RULE has a different ORDER depending on if the NODES POSITION is ON or OFF.
+ . the ORDER will turn the NODES POSITION ON or OFF
+ . the ORDER will move the NODE to an EXIT or adjacent POSITION
+
+
+   ~~~~ THIS IMPLEMENTATION ~~~~
+the BOARD is a set of positions but since javascript
+  only lets you store two positions in an array which doesnt represent a position to me
+  i stored positions as strings for example (2, 3) would be "2,3"
+
+the RULE is a dictionary. I call it such rather than as an object because it is not made to
+  be refrenced with dot notation. the keys are a binary bool representing the POSITION being
+  ON or OFF and the STATE of the NODE, for example on an OFF position with a STATE of 4 
+  would be "0,4"
+
+the ORDER is represented in the RULE dictionary as a number from 0 to 7 representing one of 
+  the eight possible EXITS the NODE, the STATE the NODE will turn into and a binary bool representing
+  the state the POSITION should be set to. for example an order to go up one POSITION, set the
+  NODES STATE to 3, and leave the POSITION ON would be "1,2,1"
+
+or in other words, for you nerds
+RULE[ ON/OFF, STATE ] = EXIT, STATE, ON/OFF
+
+(notes:
+  the NODE changes the state of the POSITION that it is currently on, not the POSITION it is going to
+  exits are represented as such:
+    0 1 2
+    3 @ 4
+    5 6 7
+    @ : NODE POSITION
+  )
+
+I wrote a little game where the RULE is shuffled after every 20 frames
+
+also theres a slider where you can set how many states there are for the rule, arbitrarily limiting from 1 to 8
+  though feel free to plat with it and allow as many states as you want
+*/
 let PW = 16;
 let WIDTH = 32;
 let HEIGHT = 32;
