@@ -72,3 +72,13 @@ content {
 .spacebelow {
     margin-bottom: 50px;
 }
+
+.left {
+    padding-right: 20px;
+    float: left;
+}
+
+.right {
+    padding-left: 20px;
+    float: right;
+}

@@ -1,0 +1,27 @@
+<img class="left" src="/static/img/replay.gif" alt="what a combo" style="width: 512px; height: auto;">
+<h3> Yes you heard correctly, im making a platform fighter </h3>
+
+<p>
+Look at that combo. So cool.
+Look, I know its kind of shitty but thats fine! I'm making it for fun so I think its great.
+
+You can check it out <a href="https://www.github.com/doctorMcbob/superFightPunch"> on my github </a>
+
+~ YOU WILL NEED ~
+Python 3
+ 
+Pygame 2
+imageio 
+(both pip installable)
+
+I'll stop being lazy and write a README at some point :fingers_crossed:
+</p>
+
+<p>
+farewell
+wxly
+</p>
+
+<!--
+
+-->
