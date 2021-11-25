@@ -11,7 +11,6 @@ import os
 
 PATH = os.getcwd()
 BLOGS = {}
-
 tempenv = Environment(
     loader=PackageLoader("mysite", "templates"),
     autoescape=select_autoescape(['html', 'xml'])
@@ -31,6 +30,7 @@ def main(request):
 
 def blog_response(request):
     blogs = list(BLOGS.keys())
+    blogs.sort()
     return Response(tempenv.get_template("blog.html").render(blogs=blogs))
 
 def a_blog(request):
