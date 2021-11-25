@@ -1,0 +1,37 @@
+<h3>I promise you guys I'm really over it</h3>
+
+<p>
+So some of you may be aware of my other site, <a href="https://www.thefremontdeli.com">thefremontdeli.com</a>
+<!-- If you're not aware perhaps you're a random stranger who let themselves in. --> 
+I made this while I was working at a co-op grocery store deli, it was made to help me with one of the shifts i would work there.
+Originally I would run it on my phone actually, using the worlds shittiest idea of a python interpreter as an android app QPython.
+<!-- what a nightmare that was, it was at that moment i decided mobile is lame -->
+
+Long story short after about a year of using this shitty web app I made at work I tried to get them to hire me in IT.
+I basically offered it to them for free, stating that it could be automatically updating if i could make something on their end.
+They told me this was not the direction they wanted to take the deli. fine whatever, the UI sucks anyways I get it.
+
+The point is if they want to continue to lose to companies that are embracing technology and automation they can,
+but they have an opportunity as a co-op to do something more interesting and develop technology to empower their workers rather then automate them away.
+
+Technology is not a section of the economy. Every industry is technology. 
+That doesn't mean everyone needs to be writing code<!-- ;) only the cool ones -->.
+
+Leaning into technology doesnt mean hiring some company to come automate everything.  
+Thats how you create reliance on technology, not empowerment by technology.
+</p>
+
+<p>
+What the hell do I know anyways
+thanks for stopping by
+wxly
+</p>
+<!-- 
+dev update!
+I did something i should have done forever ago and I set up a cron job to restart the site whenever the server boots up
+it also restarts it every 3 hours with git updates.
+
+This is great because my shitty home server is constantly getting turned off and the power button on it is messed up so it always boots when it gets plugged in
+
+hopefully this will make it more resillient.
+-->
