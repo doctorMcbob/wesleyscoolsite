@@ -57,9 +57,9 @@ function draw_board(cells) {
     ctx.beginPath();
     for (var y = 0; y < H; y++) {
         for (var x = 0; x < W; x++) {
-            if (cells.has(pack(x, y))) {ctx.fillStyle = "#4444FF"} else {ctx.fillStyle = "#999999"}
+            if (cells.has(pack(x, y))) {ctx.fillStyle = "#000000"} else {ctx.fillStyle = "#FFFFFF"}
             ctx.fillRect(x*PW, y*PW, PW, PW);
-            ctx.rect(x*PW, y*PW, PW, PW);
+            //ctx.rect(x*PW, y*PW, PW, PW);
         }
     }
     ctx.stroke();

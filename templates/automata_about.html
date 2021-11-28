@@ -2,19 +2,24 @@
 
 {% block content %}
 <div class="about">
-  <p>This is a spin off a popular <a href="https://en.wikipedia.org/wiki/Elementary_cellular_automaton">Elementary Cellular Automata</a></p>
-  <br>
-  <p>The "rule" is converted to a binary string 256 digits long. Therefore there are 2^256 possible rules. Thats a lot!</p>
-  <br>
-  <p>To decide if each cell will be alive in the next generation</p>
-  <p>With the cell being checked, build a binary string in this order</p>
-  <p>0 1 2</p>
-  <p>3 @ 4</p>
-  <p>5 6 7</p>
-  <canvas class="demo" id="01001111"></canvas>
-  <p>becomes "01001111"</p>
-  <p>The string is then converted to an integer, it will be between 0 and 255</p>
-  <p>We then index our rule with that integer, and if the result is a 1, the cell is alive in the next generation</p>  
+  <p>
+    This is a spin off a popular <a href="https://en.wikipedia.org/wiki/Elementary_cellular_automaton">Elementary Cellular Automata</a>
+  </p>
+  <p>
+    Each cell in the grid will either be on or off, based on the arrangement of its neighbors in the previous frame.
+    To know if any particular cell should be on or off, there is a rule to refrence.
+    Essentially, you take every possible arrangement of cells and assign it a digit.
+    With 8 nieghbors and 2 states there are 2^8 or 256 possible arrangement of cells, therefore there are 2^256 possible rules.
+    <br>
+    Consider the following center cell
+    <canvas class="demo" id="01001111"></canvas>
+    Reading from left to right and top to bottom, 01001111.
+    In decimil, this is 79. so the 79th digit out of 256 in our rule will be the state of the cell in the next generation.
+  </p>
+  <p>
+    In the <a href="/automata/builder">builder</a> I made you can sculpt your own rules. Yes, I know the UX is terrible. I'll work on it.
+    I have a better version written with python and pygame <a href="https://github.com/doctorMcbob/CellularAutomation">on my github</a>
+  </p>
 </div>
 <footer>
   <script src="/static/js/demo.js"></script>

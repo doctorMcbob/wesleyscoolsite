@@ -16,6 +16,10 @@ content {
     white-space: pre-line;
 }
 
+.about {
+    white-space: pre-line;
+}
+
 .blogname {
     list-style: none;
     font-family: Arial, Helvetica, Serif;
