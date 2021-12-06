@@ -16,6 +16,68 @@ var ctx = canvas.getContext("2d");
 ctx.canvas.width = W*PW; ctx.canvas.height = H*PW;
 ctx.font = String(PW) + "px Arial";
 
+COLORS = {
+    R : 64,
+    G : 128,
+    B : 192,
+    classic   : classic_color,
+    density   : density_color,
+    direction : direction_color,
+    state : "classic",
+}
+
+function classic_color(x, y, cells) {
+    return cells.has(pack(x, y)) ? "#000000" : "#FFFFFF";
+}
+function density_color(x, y, cells) {
+    let r; let b; let g;
+    const slot = nbrs(cells, x, y, W, H);
+    const thrd = 8 / 3;
+    let density = 0;
+    for (let i = 0; i < slot.length; i++) {
+	if (slot.charAt(i) == "1") {
+	    density += 1
+	}
+    }
+    r = COLORS.R + (density) * (256 / 8)  
+    g = COLORS.G + (density + thrd) * (256 / 8)  
+    b = COLORS.B + (density + (thrd * 2)) * (256 / 8)  
+
+    r = Math.floor(r % 255)
+    g = Math.floor(g % 255)
+    b = Math.floor(b % 255)
+
+    return cells.has(x, y)
+	? rgb_to_hex(255-r, 255-g, 255-b)
+	: rgb_to_hex(r, g, b)
+}
+function direction_color(x, y, cells) {
+    let r; let g; let b;
+    const slot = nbrs(cells, x, y, W, H);
+    const r_shade = slot[5] + slot[3] + slot[0] + slot[1] + slot[2];
+    const g_shade = slot[5] + slot[3] + slot[0] + slot[1] + slot[6];
+    const b_shade = slot[7] + slot[6] + slot[5] + slot[3] + slot[0];
+
+    r = from8bits(r_shade) * 8
+    g = from8bits(g_shade) * 8
+    b = from8bits(b_shade) * 8
+
+    if (cells.has(pack(x, y))) {
+	r = (r + 128) % 255
+        g = (g + 128) % 255
+        b = (b + 128) % 255
+    }
+
+    return rgb_to_hex(255-r, 255-g, 255-b)
+}
+
+function rgb_to_hex(r, g, b) {
+    return "#" + [r, g, b].map((x) => {
+	x = parseInt(x).toString(16);
+	return (x.length==1) ? "0"+x : x;
+    }).join("");
+}
+
 function mod(n, m) {return ((n % m) + m) % m}
 function get_rule() {
     str = '';
@@ -57,15 +119,12 @@ function draw_board(cells) {
     ctx.beginPath();
     for (var y = 0; y < H; y++) {
         for (var x = 0; x < W; x++) {
-            if (cells.has(pack(x, y))) {ctx.fillStyle = "#000000"} else {ctx.fillStyle = "#FFFFFF"}
+	    ctx.fillStyle = COLORS[COLORS.state](x, y, cells)
             ctx.fillRect(x*PW, y*PW, PW, PW);
-            //ctx.rect(x*PW, y*PW, PW, PW);
         }
     }
     ctx.stroke();
 }
-
-
 
 function fresh_board(W, H) {
     cells = new Set();
@@ -148,7 +207,24 @@ function play() {
     }
 }
 
+function newred(val) {
+    COLORS.R = val;
+    draw_board(cells);
+}
+function newgreen(val) {
+    COLORS.G = val;
+    draw_board(cells);
+}
+function newblue(val) {
+    COLORS.B = val;
+    draw_board(cells);
+}
 
+function new_color_state(state) {
+    COLORS.state = state
+    draw_board(cells)
+}
+ 
 function click(e) {
     if (interval != null) play();
     var rect = canvas.getBoundingClientRect();
@@ -159,3 +235,4 @@ function click(e) {
 }
 
 canvas.addEventListener('click', click);
+

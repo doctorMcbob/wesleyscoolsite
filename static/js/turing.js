@@ -1,4 +1,5 @@
-/* ~~~~ TURING by wxly ~~~~ 
+/*
+   ~~~~ TURING by wxly ~~~~ 
 
 Okay what the hell am i looking at.
 
@@ -18,6 +19,7 @@ thesis:
 
 
    ~~~~ THIS IMPLEMENTATION ~~~~
+
 the BOARD is a set of positions but since javascript
   only lets you store two positions in an array which doesnt represent a position to me
   i stored positions as strings for example (2, 3) would be "2,3"
@@ -94,7 +96,7 @@ function applyExit(exit) {
      *  5 6 7
      */
     const pre = packCell(NODE.x, NODE.y);
-    switch (exit) {
+    switch (exit) { // sorry Mike
         case 0: NODE.x -= 1; NODE.y -= 1; break;
         case 1:              NODE.y -= 1; break;
         case 2: NODE.x += 1; NODE.y -= 1; break;
@@ -153,6 +155,7 @@ function clearRule() {
 }
 
 /* ~~~~ DRAW FUNCTIONALITY ~~~~ */
+
 function drawBoard(ctx, dim, cor)  {
     // context, dimensions, corner
     const W = dim[0]; const H = dim[1];
@@ -285,6 +288,7 @@ function draw(ctx) {
 }
 
 /* ~~~~ HTML FUNCTIONALITY ~~~~ */
+
 function updateRule() {
     RULE = randomRule();
     drawRule(ruleCtx);
@@ -341,12 +345,14 @@ function playToggle() {
 }
 
 /* ~~~~ SCRIPT ~~~~ */
+
 draw(ctx);
 updateStates(8);
 RULE = clearRule();
 drawRule(ruleCtx);
 
-// ~~~~ KEYBOARD FUNCTIONALITY ~~~~
+/* ~~~~ KEYBOARD FUNCTIONALITY ~~~~ */
+
 document.addEventListener('keydown', (e) => {
     if (e.code == "KeyA") CX -= 4;
     if (e.code == "KeyW") CY -= 4;
