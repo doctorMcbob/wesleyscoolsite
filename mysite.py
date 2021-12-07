@@ -7,6 +7,8 @@ from pyramid.response import Response
 from pyramid.renderers import render_to_response
 from jinja2 import Environment, PackageLoader, select_autoescape
 
+from datetime import datetime
+
 import os
 
 PATH = os.getcwd()
@@ -67,6 +69,15 @@ def get_LURD(request):
         LURD = f.read()
     return Response(LURD)
 
+def drop_page(request):
+    if request.method == "POST":
+        droppath = PATH + "/drop/"
+        if not os.path.isdir(droppath): os.mkdir(droppath)
+        with open(droppath + str(datetime.now()), "w+") as f:
+            f.write(request.POST["message"])
+        return Response(tempenv.get_template("drop.html").render({"message_sent_flag":"Message Sent"}))
+    return Response(tempenv.get_template("drop.html").render())
+
 if __name__ == "__main__":
     BLOGS = load_blogs()
     with Configurator() as config:
@@ -77,6 +88,9 @@ if __name__ == "__main__":
         config.add_view(blog_response, route_name="blog")
         config.add_route("a blog", "/blog/{name}")
         config.add_view(a_blog, route_name="a blog")
+
+        config.add_route("drop", "/drop")
+        config.add_view(drop_page, route_name="drop")
 
         config.add_route("automata", "/automata")
         config.add_view(automata, route_name="automata")

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Drop{% endblock %}
+
+{% block content %}
+
+<h1>Drop</h1>
+{{ message_sent_flag }}
+
+<p style="white-space: pre-line;">
+  I will read whatever you put in here
+  But you have to take my word for it
+</p>
+
+<form id="contactform" action="/drop" method="POST">
+  <label for="message">unless you add your name, messages are anonymous</label><br>
+  <textarea rows=20 cols=80 id="message" name="message"></textarea><br>
+  <input type="submit" value="Send" />
+</form>
+
+{% endblock %}
