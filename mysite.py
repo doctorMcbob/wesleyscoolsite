@@ -65,7 +65,7 @@ def turing(request):
     return Response(tempenv.get_template("turing.html").render())
 
 def apdc(request):
-    return Response(tempenv.get_template("apdc.html").render())
+    return Response(tempenv.get_template("roguelike.html").render())
 
 def get_LURD(request):
     with open("LURD.py") as f:
