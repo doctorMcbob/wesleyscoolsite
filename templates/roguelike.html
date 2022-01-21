@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %} Automata {% endblock %}
+
+{% block content %}
+<h3>Wesleys Cool Roguelike</h3>
+<div style="display: inline">
+  <p style="display: inline;">
+    Life: <div style="display: inline; padding-right:40px;" id="HP"></div>
+    Strength: <div style="display: inline;padding-right:40px;" id="STR"></div>
+    INV: <div style="display: inline;" id="INV"></div>
+  </p>
+</div>
+<canvas id="board"></canvas>
+<br>
+<button class="movebutton" id="UP" onclick="move(0, -1)"> UP </button>
+<br>
+<button class="movebutton" id="DOWN" onclick="move(0, 1)"> DOWN </button>
+<button class="movebutton" id="LEFT" onclick="move(-1, 0)"> LEFT </button>
+<button class="movebutton" id="RIGHT" onclick="move(1, 0)"> RIGHT </button>
+</body>
+<footer>
+  <script src="/static/js/roguelike.js"></script>
+</footer>
+
+{% endblock %}
