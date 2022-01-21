@@ -64,8 +64,8 @@ def maze(request):
 def turing(request):
     return Response(tempenv.get_template("turing.html").render())
 
-def roguelike(request):
-    return Response(tempenv.get_template("roguelike.html").render())
+def apdc(request):
+    return Response(tempenv.get_template("apdc.html").render())
 
 def get_LURD(request):
     with open("LURD.py") as f:
@@ -104,8 +104,8 @@ if __name__ == "__main__":
         config.add_route("automata builder", "/automata/builder")
         config.add_view(automata_builder, route_name="automata builder")
 
-        config.add_route("roguelike", "/roguelike")
-        config.add_view(roguelike, route_name="roguelike")
+        config.add_route("apdc", "/apdc")
+        config.add_view(apdc, route_name="apdc")
 
         config.add_route("maze", "/maze")
         config.add_view(maze, route_name="maze")
