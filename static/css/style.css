@@ -71,6 +71,7 @@ content {
 .movebutton {
     height: 64px;
     width: 64px;
+    margin: 3px;
 }
 
 .spacebelow {
