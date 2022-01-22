@@ -73,6 +73,21 @@ content {
     width: 64px;
     margin: 20px;
 }
+.itembutton {
+    height: 64px;
+    margin: 20px;
+}
+
+.roguelikemove {
+    display: inline-block;
+    float: left;
+    margin-left: 30%;
+}
+.roguelikeinv {
+    display: inline-block;
+    float: right;
+    margin-right: 30%;
+}
 
 .spacebelow {
     margin-bottom: 50px;
