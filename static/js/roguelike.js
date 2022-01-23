@@ -79,6 +79,7 @@ const ACTORS = [ // the order is important for how they are drawn
     "ASH",
     "WATER",
     "GRASS1",  "GRASS2",  "GRASS3",
+    "ROCK1",  "ROCK2",  "ROCK3",
     "DOORS", "CHEST",
     "FIREBALL", 
     "FIRE1", "FIRE2", "FIRE3",
@@ -113,6 +114,9 @@ const SPRITES = {
     "GRASS1"    : ",",
     "GRASS2"    : ",",
     "GRASS3"    : ".",
+    "ROCK1"     : "+",
+    "ROCK2"     : "×",
+    "ROCK3"     : "+",
     "UPSTAIRS"  : ">",
     "DOWNSTAIRS": "<",
     "DOORS"     : "_",
@@ -124,8 +128,8 @@ const SPRITES = {
     
     "END"       : "You have reached the end! ~",
     "STEPS"     : "You took 0 steps",
-    "WELCOME"   : "Welcome to my cool roguelike!",
-    "TUTORIAL1" : "W A S D to move",
+    "WELCOME"   : "Another Procedural Dungeon Crawler",
+    "TUTORIAL1" : "W A S D to move. You must go up the stairs!",
     "TUTORIAL2" : "Down stairs:",
     "TUTORIAL3" : "Up stairs:",
     "TUTORIAL4" : "Player: ",
@@ -152,6 +156,9 @@ const COLORS = {
     "GRASS1": ["#BFFFB3", "#004D0D"],
     "GRASS2": ["#BFFFB3", "#113300"],
     "GRASS3": ["#BFFFB3", "#004D0D"],
+    "ROCK1": ["#A9A9A9", "#696969"],
+    "ROCK2": ["#BEBEBE", "#CFCFC4"],
+    "ROCK3": ["#D3D3D3", "#C5C1AA"],
     "FIRE1": [false, "#FF0000"],
     "FIRE2": [false, "#E60000"],
     "FIRE3": [false, "#800000"],
@@ -517,7 +524,7 @@ function getVillage(idx, depth, last) {
     while (i < depth) {
 	const floor = getEmptyFloor();
 	for (let _ = 0; _ < 3 + Math.floor(Math.random() * 10); _++) {
-	    addRoom(floor);
+	    addRoom(floor, last);
 	}
 
 	last = applyStairs(floor, last);
@@ -575,9 +582,22 @@ function getCaves(idx, depth, last) {
     const floors = [];
     let i = 0;
     while (i < depth) {
-	const floor = getEmptyFloor();
-
+	let floor = getEmptyFloor();
+	const prev = last;
 	last = applyStairs(floor, last);
+
+	let placed = 0
+	while (placed < 30) {
+	    let copy = copyFloor(floor);
+	    while (checkSolvable(copy, prev, last)) {
+		floor = copyFloor(copy);
+		addGash(copy);
+		placed += 1;
+	    }
+	    placed -= 1
+	    
+	}
+
 	floors.push(floor);
 	i += 1;	
     }
@@ -686,13 +706,13 @@ function getFloors() {
     for (let idx = 0; idx < village.floors.length; idx++) {
 	floors.push(village.floors[idx]);
     }
-    /*
+
     const caves = getCaves(floors.length, 4+Math.floor(Math.random()*4), last);
     last = caves.last;
     for (let idx = 0; idx < caves.floors.length; idx++) {
 	floors.push(caves.floors[idx]);
     }
-
+    /*
     const volcano = getVolcano(floors.length, 2+Math.floor(Math.random()*2), last);
     last = volcano.last;
     for (let idx = 0; idx < volcano.floors.length; idx++) {
@@ -738,6 +758,13 @@ function getFloors() {
     floors.push(getFinale());
     return floors;
 }
+function copyFloor(floor) {
+    const newfloor = {};
+    for (let key in floor) {
+	newfloor[key] = new Set(floor[key])
+    }
+    return newfloor;
+}
 
 function tangAt(floor, pos) {
     for (let idx = 0; idx < TANGIBLE.length; idx++) {
@@ -778,8 +805,9 @@ function anybodyAt(depth, pos) {
 }
 
 function checkAt(floor, pos) {
-    for (let idx = 0; idx < ACTORS.length; idx++) {
-	const key = ACTORS[idx];
+    const actors = Object.keys(floor);
+    for (let idx = 0; idx < actors.length; idx++) {
+	const key = actors[idx];
 	if (floor[key].has(pos)) {
 	    return key;
 	}
@@ -813,7 +841,60 @@ function updateStats() {
     document.getElementById("INVBTNS").innerHTML = buttons;
 }
 
-function getBox(actor, x, y, w, h) {
+function getLine(x1, y1, x2, y2) {
+    const line = [];
+    const issteep = Math.abs(y2-y1) > Math.abs(x2-x1);
+    let swap;
+    if (issteep) {
+	swap = x1;
+	x1 = y1; y1 = swap;
+	swap = x2;
+	x2 = y2; y2 = swap;
+    }
+    let rev = true;
+    if (x1 > x2) {
+	swap = x1;
+	x1 = x2; x2 = swap;
+	swap = y1;
+	y1 = y2; y2 = swap;
+	rev = false;
+    }
+    const deltax = x2 - x1;
+    const deltay = Math.abs(y2-y1);
+    let correction = Math.floor(deltax / 2);
+    let y = y1;
+    const ystep = y1 < y2 ? 1 : -1;
+
+    for (let x = x1; x <= x2; x++) {
+	line.push(issteep ? pack(y, x):pack(x, y));
+	correction -= deltay;
+	if (correction < 0) {
+	    y += ystep;
+	    correction += deltax;
+	}
+    }
+    return line;
+}
+
+function getSpike(peak, x, y, w, h) {
+    const spike = [];
+    const line1 = getLine(x, y, x+peak, y+h);
+    const line2 = getLine(x+peak, y+h, x+w, y);
+    while (line1.length > line2.length) {
+	line2.push(line2[line2.length-1]);
+    }
+    for (let idx = 0; idx < line1.length; idx++) {
+	const unpack1 = unpack(line1[idx]);
+	const unpack2 = unpack(line2[idx]);
+	const direction = unpack1[0] < unpack2[0] ? 1 : -1;
+	for (let dist = 0; dist <= Math.abs(unpack1[0] - unpack2[0]); dist++) {
+	    spike.push(pack(unpack1[0] +(dist * direction), unpack1[1]));
+	}
+    }
+    return spike;
+}
+
+function getBox(x, y, w, h) {
     const box = [];
     for (let idx = 0; idx < w; idx++) {
 	box.push(pack(x + idx, y))
@@ -830,13 +911,92 @@ function getBox(actor, x, y, w, h) {
     return box;
 }
 
-function addRoom (floor) {
+function tunnelMySpike(spike) {
+    const micro = { "WALLS": new Set(), "HARDWOOD": new Set(), "DOORS": new Set()}
+    const start = unpack(spike[Math.floor(spike.length / 2)]);
+
+    const heads = [pack(start[0]-2, start[1]), pack(start[0]+2, start[1])]
+    
+    for (let x = start[0]-2; x < start[0]+3;x++) {
+	for (let y = start[1]-2; y < start[1]+3;y++) {
+	    if (pack(x, y) in heads) {
+		micro["DOORS"].add(pack(x, y));
+	    } else if (x == start[0]-2 || x == start[0]+2 || y == start[1]-2 || y == start[1]+2) {
+		micro["WALLS"].add(pack(x, y));
+	    } else {
+		micro["HARDWOOD"].add(pack(x, y));
+	    }
+	}
+    }
+
+    while (heads.length) {
+	let head = heads.pop();
+	if (spike.includes(head)) {
+	    const dirs = adjacent(head);
+	    heads.push(dirs[Math.floor(Math.random()*4)]);
+
+	    if (micro["WALLS"].has(head)) {
+		micro["WALLS"].delete(head);
+	    }
+	    micro["HARDWOOD"].add(head);
+	    dirs.forEach((pos) => {
+		if (spike.includes(pos) && !micro["HARDWOOD"].has(pos)) {
+		    micro["WALLS"].add(pos);
+		}
+	    });
+	}	
+    }
+
+    return micro;
+}
+
+function addGash(floor, last) {
+    const flip =  Math.floor(Math.random()*2) == 1
+    const width = 4 + Math.floor(Math.random() * 15);
+    let height = 3 + Math.floor(Math.random() * 20);
+    if (flip) { height = 0 - height } 
+    const x = -5 +  Math.floor(Math.random() * (W - width + 10));
+    const y = flip ? H-2: 1;
+    const peak = Math.floor(Math.random() * width);
+
+    const spike = getSpike(peak, x, y, width, height);
+
+    const tunnels = tunnelMySpike(spike); 
+    
+    spike.forEach((pos) => {
+	const unpacked = unpack(pos);
+	if (unpacked[0] == 0 || unpacked[0] == W-1 || unpacked[1] == 0 || unpacked[1] == H-1) {
+	    return
+	}
+
+	if (tunnels.HARDWOOD.has(pos) || floor.HARDWOOD.has(pos)) {
+	    floor.HARDWOOD.add(pos);
+	    if (floor.STONE.has(pos)) {
+		floor.STONE.delete(pos);
+	    }
+	    if (floor.WALLS.has(pos)) {
+		floor.WALLS.delete(pos);
+	    }
+	} else if (tunnels.DOORS.has(pos)) {
+	    floor.DOORS.add(pos);	    
+	} else if (tunnels.WALLS.has(pos)) {
+	    if (floor.STONE.has(pos)) {
+		floor.STONE.delete(pos);
+	    }
+	    floor.WALLS.add(pos);	    
+	} else if (!checkAt(floor, pos)) {
+	    floor.STONE.add(pos);
+	}
+    });
+}
+
+function addRoom (floor, last) {
     const width = 5 + Math.floor(Math.random() * 12);
     const height = 5 + Math.floor(Math.random() * 12);
     const top =  2 + Math.floor(Math.random() * (H - height - 4));
     const left = 2 + Math.floor(Math.random() * (W - width - 4));
     
-    const box = getBox("WALLS", left, top, width, height);
+    const box = getBox(left, top, width, height);
     let outside = true;
 
     let idx = 0;
@@ -850,11 +1010,12 @@ function addRoom (floor) {
 	    outside = !outside;
 	}
 	if (outside) {
-	    if (doors.includes(idx)) {
-		floor.DOORS.add(wall);
-		
-	    } else {
-		floor.WALLS.add(wall);
+	    if (wall != last) {
+		if (doors.includes(idx)) {
+		    floor.DOORS.add(wall);
+		} else {
+		    floor.WALLS.add(wall);
+		}
 	    }
 	}
 	idx += 1;
@@ -1119,6 +1280,35 @@ function adjacent(pos) {
 	pack(unpacked[0]-1, unpacked[1]),
 	pack(unpacked[0], unpacked[1]-1),
     ]
+}
+
+function inbetween(n, a, b) {
+    return n > Math.min(a, b) && n < Math.max(a, b);
+}
+
+function checkSolvable(floor, start, end) {
+    const checked = new Set();
+    const heads = [start];
+    if (tangAt(floor, start) || tangAt(floor, end)) {
+	return false;
+    }
+
+    while (!heads.includes(end)) {
+	const head = heads.pop();
+	checked.add(head);
+	
+	const nbrs = adjacent(head);
+	nbrs.forEach((pos) => {
+	    if (!tangAt(floor, pos) && !checked.has(pos)) {
+		heads.push(pos);
+	    }
+	});
+
+	if (heads.length == 0) {
+	    return false;
+	}
+    }
+    return true;
 }
 
 function makeChest(floor, pos, forcelock = false, defaultItem = false) {
