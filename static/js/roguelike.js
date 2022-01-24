@@ -86,9 +86,10 @@ const ACTORS = [ // the order is important for how they are drawn
     "FIRE1", "FIRE2", "FIRE3",
     "CARPET1", "CARPET2",
     "DOWNSTAIRS", "UPSTAIRS",
-    "TELEPORTER", "FIRE WAND", "FOOD", "KEY",
+    "TELEPORTER", "FIRE WAND", "FOOD", "KEY", "THROWING STAR",
     "GOOSEBALL", "RABBIT", "VILLAGER",
-    "BAT", "SNAKE", "DWARF", "TABLE", 
+    "BAT", "SNAKE", "DWARF", "TABLE",
+    "STAR", "STAR1", "STAR2",
     "PLAYER",
     "END", "STEPS",
     "WELCOME", "TUTORIAL1", "TUTORIAL2", "TUTORIAL3", "TUTORIAL4",
@@ -120,6 +121,9 @@ const SPRITES = {
     "ROCK1"     : "+",
     "ROCK2"     : "×",
     "ROCK3"     : "+",
+    "STAR1"     : "×",
+    "STAR2"     : "+",
+    "THROWING STAR": "×",
     "UPSTAIRS"  : ">",
     "DOWNSTAIRS": "<",
     "DOORS"     : "_",
@@ -171,6 +175,9 @@ const COLORS = {
     "FIRE1": [false, "#FF0000"],
     "FIRE2": [false, "#E60000"],
     "FIRE3": [false, "#800000"],
+    "STAR1": [false, "#990000"],
+    "STAR2": [false, "#990000"],
+    "THROWING STAR": [false, "#990000"],
     "CARPET1": ["#84DE02", "#004D00"],
     "CARPET2": ["#E32636", "#800015"],
     "ASH": [false, "#BEB2B5"],
@@ -216,10 +223,12 @@ const BRAINS = {
     "DWARF": [],
     "FIREBALL": [],
     "CHEST": [],
+    "STAR": [],
     "PLAYER": {
 	DIR: "0,0",
 	pos: pack(27, 8),
 	firewanduse: 10,
+	throwstaruse: 8,
     },
 }
 const ITEMS = {
@@ -273,6 +282,26 @@ const ITEMS = {
 	use: () => {
 	    STATS.HP += 15 + Math.floor(Math.random()*15);
 	    remove(STATS.INV, "FOOD");
+	}
+    },
+    "THROWING STAR": {
+	btn: "Throw Star",
+	use: () => {
+	    const dir = unpack(BRAINS.PLAYER.DIR);
+	    const pos = unpack(BRAINS.PLAYER.pos);
+
+	    BRAINS.PLAYER.throwstaruse -= 1;
+	    BRAINS.STAR.push({
+		name: "STAR1",
+		pos: pack(pos[0]+dir[0], pos[1]+dir[1]),
+		direction: dir,
+		floor: DEPTH,
+		update: throwstar,
+		DMG: 10,
+		counter: 0,
+	    });
+	    FLOORS[DEPTH].STAR1.add(pack(pos[0]+dir[0], pos[1]+dir[1]));
+	    remove(STATS.INV, "THROWING STAR");
 	}
     }
 }
@@ -552,21 +581,28 @@ function getVillage(idx, depth, last) {
 	    for (let x = 0; x < W; x++) {
 		const slot = checkAt(floor, pack(x, y)); 
 		if (!slot) {
-		    const grass = `GRASS${1+Math.floor(Math.random()*3)}`;
-		    floor[grass].add(pack(x, y));
+		    const roll = Math.floor(Math.random()*100);
+		    if (roll < 5 && canFit(floor, x, y, 12, 12, ACTORS)) {
+			addPond(floor, "GRASS", "WATER", x, y, 12, 12);
+		    } else if (roll <= 10 && canFit(floor, x, y, 9, 5, ACTORS)) {
+			addPond(floor, "GRASS", "WATER", x, y, 9, 5);
+		    } else {
+			const grass = `GRASS${1+Math.floor(Math.random()*3)}`;
+			floor[grass].add(pack(x, y));
 
-		    if (Math.floor(Math.random()*100) == 0) {
-			BRAINS["GOOSEBALL"].push({
-			    floor: idx + i,
-			    name: "GOOSEBALL",
-			    pos: pack(x, y),
-			    update: wanderCharge,
-			    state: "wander",
-			    HP: 3,
-			    DMG: 12,
-			    bleeds: true,
-			}); 
-			floor["GOOSEBALL"].add(pack(x, y));
+			if (Math.floor(Math.random()*100) == 0) {
+			    BRAINS["GOOSEBALL"].push({
+				floor: idx + i,
+				name: "GOOSEBALL",
+				pos: pack(x, y),
+				update: wanderCharge,
+				state: "wander",
+				HP: 3,
+				DMG: 12,
+				bleeds: true,
+			    }); 
+			    floor["GOOSEBALL"].add(pack(x, y));
+			}
 		    }
 		} else if (slot == "HARDWOOD") {
 		    if (Math.floor(Math.random()*200) == 0) {
@@ -1045,6 +1081,25 @@ function tunnelMySpike(spike) {
     return micro;
 }
 
+function addPond(floor, outside, fill, left, top, w, h) {
+    for (let x = left; x < left+w; x++) {
+	for (let y = top; y < top+h; y++) {
+	    if (
+		x == left || x == left+w-1 || y == top|| y == top+h-1
+		    || (x == left+1 && y == top+1)
+		    || (x == left+1 && y == top+h-2)
+		    || (x == left+w-2 && y == top+1)
+		    || (x == left+w-2 && y == top+h-2)
+	    ) {
+		const name = `${outside}${1+Math.floor(Math.random()*3)}`;
+		floor[name].add(pack(x, y));
+	    } else {
+		floor[fill].add(pack(x, y));
+	    }
+	}
+    }
+}
+
 function addTable(floor, depth, left, top) {
     for (let x = left; x < left+5; x++) {
 	for (let y = top; y < top+4; y++) {
@@ -1268,6 +1323,25 @@ function wander(floor, brain, safe=false) {
     return true;
 }
 
+function throwstar(floor, brain) {
+    floor[brain.name].delete(brain.pos);
+    brain.name = brain.counter % 2 == 1 ? "STAR1" : "STAR2";
+    brain.counter++;
+    const result = charge(floor, brain);
+
+    if (result == "hit") {
+	floor[brain.name].delete(brain.pos);
+	if (BRAINS.PLAYER.throwstaruse > 0) {
+	    floor["THROWING STAR"].add(brain.pos);
+	} else {
+	    BRAINS.PLAYER.throwstaruse = 8;
+	}
+	return false;
+    }
+
+    return result;
+}
+
 function fireball(floor, brain) {
     const result = chargeBreak(floor, brain);
 
@@ -1280,7 +1354,6 @@ function fireball(floor, brain) {
 	}
 
     }
-    
     return result;
 }
 
@@ -1312,7 +1385,7 @@ function charge(floor, brain) {
 	    return "hit";
 	}
     }
-        
+    
     floor[brain.name].delete(brain.pos);
     brain.pos = pack(x, y);
     floor[brain.name].add(brain.pos);
@@ -1520,12 +1593,14 @@ function makeChest(floor, pos, forcelock = false, defaultItem = false) {
 	const roll = Math.floor(Math.random() * 100);
 	if (roll <= 10) {
 	    item = itemKeys[Math.floor(Math.random() * itemKeys.length)];
-	} else if (roll <= 50) {
+	} else if (roll <= 30) {
 	    item = "FOOD";
-	} else if (roll <= 58) {
+	} else if (roll <= 38) {
 	    item = "TELEPORTER";
-	} else if (roll <= 80) {
+	} else if (roll <= 50) {
 	    item = "FIRE WAND";
+	} else  if (roll <= 65) {
+	    item = "THROWING STAR";
 	} else {
 	    item = "KEY";
 	}
