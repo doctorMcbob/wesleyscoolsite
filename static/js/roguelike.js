@@ -73,10 +73,14 @@ const STATS = {
 }
 
 // keys
-const ACTORS = [ // the order is important for how they are drawn
-    "BLOOD", "STONE",  // first bottom color from the bottom of the list
-    "CARPET1", "CARPET2", "TABLE", 
-    "WALLS", "HARDWOOD",  // first sprite from the top of the list
+// the order is important for how they are drawn
+// first bottom color from the bottom of the list
+// first sprite from the top of the list 
+const ACTORS = [
+    "BLOOD", "STONE",
+    "SPORE",
+    "CARPET1", "CARPET2", "TABLE",
+    "WALLS", "HARDWOOD",  
     "ASH",
     "WATER",
     "GRASS1",  "GRASS2",  "GRASS3",
@@ -86,6 +90,8 @@ const ACTORS = [ // the order is important for how they are drawn
     "FIRE1", "FIRE2", "FIRE3",
     "CARPET1", "CARPET2",
     "DOWNSTAIRS", "UPSTAIRS",
+    "RED MUSHROOM", "BLUE MUSHROOM", "GREEN MUSHROOM",
+    "PURPLE MUSHROOM", "BLACK MUSHROOM", "WHITE MUSHROOM",
     "TELEPORTER", "FIRE WAND", "FOOD", "KEY", "THROWING STAR",
     "GOOSEBALL", "RABBIT", "VILLAGER",
     "BAT", "SNAKE", "DWARF", "TABLE",
@@ -96,6 +102,7 @@ const ACTORS = [ // the order is important for how they are drawn
     "TUTORIAL5", "TUTORIAL6", "TUTORIAL7", "TUTORIAL8", "TUTORIAL9",
     "TUTORIAL10", "TUTORIAL11", "TUTORIAL12",
 ];
+
 const TANGIBLE = ["WALLS", "STONE", "WATER", "TABLE"];
 const FLAMMABLE = ["WALLS", "HARDWOOD", "DOORS", "GRASS2", "CARPET1", "CARPET2", "TABLE"];
 
@@ -105,7 +112,8 @@ const SPRITES = {
     "WATER"     : "~",
     "WALLS"     : "#",
     "VILLAGER"  : "Ö",
-    "BLOOD"     : " ",
+    "BLOOD"     : "",
+    "SPORE"     : "",
     "FOOD"      : "º",
     "CHEST"     : "€",
     "KEY"       : "¬",
@@ -139,6 +147,13 @@ const SPRITES = {
     "CARPET2"   : "[",    
     "FIREBALL"  : "•",
     
+    "RED MUSHROOM": "¶",
+    "BLUE MUSHROOM": "¶",
+    "GREEN MUSHROOM": "¶",
+    "PURPLE MUSHROOM": "¶",
+    "BLACK MUSHROOM": "¶",
+    "WHITE MUSHROOM": "¶",
+    
     "END"       : "You have reached the end! ~",
     "STEPS"     : "You took 0 steps",
     "WELCOME"   : "Welcome to my cool roguelike!",
@@ -163,7 +178,13 @@ const COLORS = {
     "WALLS": ["#C19A6B", "#4D3300"],
     "WATER": ["#4F42B5", "#0077BE"],
     "BLOOD": ["#AF002A", "#000000"],
-    "UPSTAIRS"  : ["#FFFF00", "#000000"],
+    "RED MUSHROOM": [false, "#FF0000"],
+    "BLUE MUSHROOM": [false, "#0000FF"],
+    "GREEN MUSHROOM": [false, "#00FF00"],
+    "PURPLE MUSHROOM": [false, "#FF00FF"],
+    "BLACK MUSHROOM": [false, "#000000"],
+    "WHITE MUSHROOM": [false, "#FFFFFF"],
+    "UPSTAIRS": ["#FFFF00", "#000000"],
     "DOWNSTAIRS": ["#FFFF00", "#000000"],
     "DOORS": ["#C19A6B", "#664C28"],
     "GRASS1": ["#BFFFB3", "#004D0D"],
@@ -224,6 +245,7 @@ const BRAINS = {
     "FIREBALL": [],
     "CHEST": [],
     "STAR": [],
+    "SPORE": [],
     "PLAYER": {
 	DIR: "0,0",
 	pos: pack(27, 8),
@@ -231,6 +253,7 @@ const BRAINS = {
 	throwstaruse: 8,
     },
 }
+
 const ITEMS = {
     "TELEPORTER": {
 	btn: "Teleport",
@@ -303,7 +326,45 @@ const ITEMS = {
 	    FLOORS[DEPTH].STAR1.add(pack(pos[0]+dir[0], pos[1]+dir[1]));
 	    remove(STATS.INV, "THROWING STAR");
 	}
-    }
+    },
+    "RED MUSHROOM": {
+	btn: "Eat Red Mushroom",
+	use: () => {
+	    remove(STATS.INV, "RED MUSHROOM");
+	}
+    },
+    "BLUE MUSHROOM": {
+	btn: "Eat Blue Mushroom",
+	use: () => {
+	    STATS.STR += Math.floor(Math.random() * 3);
+	    remove(STATS.INV, "BLUE MUSHROOM");
+	}
+    },
+    "GREEN MUSHROOM": {
+	btn: "Eat Green Mushroom",
+	use: () => {
+	    remove(STATS.INV, "GREEN MUSHROOM");
+	}
+    },
+    "PURPLE MUSHROOM": {
+	btn: "Eat Purple Mushroom",
+	use: () => {
+	    remove(STATS.INV, "PURPLE MUSHROOM");
+	}
+    },
+    "BLACK MUSHROOM": {
+	btn: "Eat Black Mushroom",
+	use: () => {
+	    remove(STATS.INV, "BLACK MUSHROOM");
+	}
+    },
+    "WHITE MUSHROOM": {
+	btn: "Eat White Mushroom",
+	use: () => {
+	    remove(STATS.INV, "WHITE MUSHROOM");
+	}
+    },
+
 }
 
 // sets of positions
@@ -413,7 +474,7 @@ function move(x, y) {
 	updateStats();
 	return;
     } else {
-	const brain = anybodyAt(DEPTH, packed);
+	const brain = anybodyAt(DEPTH, packed, ["SPORE"]);
 	if (brain && brain != BRAINS.PLAYER) {
 	    if (brain.HP) {
 		brain.HP -= STATS.STR;
@@ -874,6 +935,7 @@ function getFloors() {
 	floors.push(dragonsLair.floors[idx]);
     }
     */
+    
     floors.push(getFinale());
     return floors;
 }
@@ -904,8 +966,11 @@ function itemAt(floor, pos) {
     return false;
 }
 
-function anybodyAt(depth, pos) {
+function anybodyAt(depth, pos, ignore=[]) {
     for (let key in BRAINS) {
+	if (ignore.includes(key)) {
+	    continue;
+	}
 	if (key == "PLAYER") {
 	    if (BRAINS.PLAYER.pos == pos & DEPTH == depth) {
 		return BRAINS[key];
@@ -1215,6 +1280,26 @@ function addRoom (floor, last) {
     drawBoard(floor);
 }
 
+function sporespread(floor, brain) {
+    for (let idx = 0; idx < BRAINS.SPORE.length; idx++) {
+	const obrain = BRAINS.SPORE[idx];
+	if (obrain.gene == brain.gene || obrain.floor != brain.floor) {
+	    continue;
+	}
+	if (obrain.pos == brain.pos) {
+	    remove(BRAINS.SPORE, obrain);
+	    floor[mushCombine(brain.gene, obrain.gene)].add(brain.pos);
+	    return false;
+	}
+    }
+    
+    if (anybodyAt(brain.floor, brain.pos, ["SPORE"])) {
+	const nbr = adjacent(brain.pos)[Math.floor(Math.random()*4)];
+	brain.pos = nbr;
+    }
+    return true;
+}
+
 function actorTurn() {
     for (let key in BRAINS) {
 	const killList = [];
@@ -1296,7 +1381,35 @@ function boardTurn() {
 		}
 	    });
 	}
+
+	floor["BLOOD"].forEach((pos) => {
+	    if (!anybodyAt(idx, pos) && Math.floor(Math.random() * 50) == 0) {
+		BRAINS.SPORE.push({
+		    name: "SPORE",
+		    pos,
+		    floor: idx,
+		    gene: ["A", "B", "C", "D"][Math.floor(Math.random()*4)],
+		    update: sporespread,
+		});
+	    }
+	});
     }
+}
+
+function mushCombine(a, b) {
+    const result = {
+	"AB": "RED MUSHROOM",
+	"AC": "BLUE MUSHROOM",
+	"AD": "GREEN MUSHROOM",
+	"BC": "PURPLE MUSHROOM",
+	"BD": "BLACK MUSHROOM",
+	"CD": "WHITE MUSHROOM",
+    }
+    
+    const order = ["A", "B", "C", "D"];
+    const idx1 = order.indexOf(a);
+    const idx2 = order.indexOf(b);
+    return result[`${order[Math.min(idx1, idx2)]}${order[Math.max(idx1, idx2)]}`];
 }
 
 function wander(floor, brain, safe=false) {
@@ -1307,7 +1420,7 @@ function wander(floor, brain, safe=false) {
 	if (tangAt(floor, pack(unpacked[0]+x, unpacked[1]+y))) {
 	    return true;
 	}
-	const obrain = anybodyAt(FLOORS.indexOf(floor), pack(unpacked[0]+x, unpacked[1]+y));
+	const obrain = anybodyAt(FLOORS.indexOf(floor), pack(unpacked[0]+x, unpacked[1]+y), ["SPORE"]);
 	if (obrain && obrain != brain) {
 	    if (!safe && obrain == BRAINS.PLAYER) {
 		STATS.HP -= brain.DMG;
@@ -1376,7 +1489,7 @@ function charge(floor, brain) {
 	STATS.HP -= brain.DMG;
 	return "hit";
     }
-    const otherBrain = anybodyAt(FLOORS.indexOf(floor), pack(x, y));
+    const otherBrain = anybodyAt(FLOORS.indexOf(floor), pack(x, y), ["SPORE"]);
     if (otherBrain) {
 	if (otherBrain.pos == pack(x, y)) {
 	    if (otherBrain.HP && brain.DMG) {
@@ -1450,7 +1563,7 @@ function swarm(floor, brain) {
     if (tangAt(floor, pack(unpacked[0]+x, unpacked[1]+y))) {
 	return true;
     }
-    const obrain =anybodyAt(FLOORS.indexOf(floor), pack(unpacked[0]+x, unpacked[1]+y));
+    const obrain =anybodyAt(FLOORS.indexOf(floor), pack(unpacked[0]+x, unpacked[1]+y), ["SPORE"]);
     if (obrain && obrain != brain) {
 	if (obrain == BRAINS.PLAYER) {
 	    STATS.HP -= brain.DMG;
@@ -1490,7 +1603,7 @@ function rage(floor, brain) {
 	newpos = pack(mypos[0], mypos[1] + ymod);
     }
     
-    const anybody = anybodyAt(brain.floor, newpos);
+    const anybody = anybodyAt(brain.floor, newpos, ["SPORE"]);
     if (anybody) {
 	if (anybody == BRAINS.PLAYER) {
 	    STATS.HP -= brain.DMG;
@@ -1536,9 +1649,6 @@ function waitEnrage(floor, brain) {
     }
     return true;
 }
-
-
-
 
 function adjacent(pos) {
     const unpacked = unpack(pos);
