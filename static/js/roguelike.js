@@ -156,8 +156,8 @@ const SPRITES = {
     
     "END"       : "You have reached the end! ~",
     "STEPS"     : "You took 0 steps",
-    "WELCOME"   : "Welcome to my cool roguelike!",
-    "TUTORIAL1" : "W A S D to move",
+    "WELCOME"   : "Welcome to Another Procedural Dungeon Crawler!",
+    "TUTORIAL1" : "W A S D to move.       You must go up the stairs!",
     "TUTORIAL2" : "Down stairs:",
     "TUTORIAL3" : "Up stairs:",
     "TUTORIAL4" : "Player: ",
@@ -1391,6 +1391,9 @@ function boardTurn() {
 		    gene: ["A", "B", "C", "D"][Math.floor(Math.random()*4)],
 		    update: sporespread,
 		});
+		if (Math.floor(Math.random() * 10) == 0) {
+		    floor.BLOOD.delete(pos);
+		}
 	    }
 	});
     }
