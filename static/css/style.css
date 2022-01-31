@@ -63,6 +63,9 @@ content {
     display: inline;
 }
 
+.lifebtn {
+    margin-bottom: 20px;
+};
 .autobutton {
     width: 156px;
     height: 64px;

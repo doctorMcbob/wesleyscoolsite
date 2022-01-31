@@ -7,16 +7,21 @@
 <h1> <span class="wavel">,.+*"*+.,.+*"*+.</span> Welcome <span class="waver">.+*"*+.,.+*"*+.,</span> </h1>
 <p> You finally made it </p>
 <p> I'm Wesley. This is my website. </p>
+
+<p> Check it out, <a href="/blog/6:Point-And-Click...A-Gamejam-Worth-Jamming-Right-Up-Your-Ive-Said-Too-Much">I did a gamejam</a> and started an itch.io </p>
+<iframe src="https://itch.io/embed/1378240" height="167" width="552" frameborder="0"><a href="https://wxly.itch.io/the-haribo-heist-pointandclick">The Haribo Heist : PointAndClick by WXLY</a></iframe>
+
 <p> Here's <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life"> Game of Life </a> </p>
 
 <canvas id="board"> </canvas>
 <br>
-<button type="button" id="back" onclick="back()"> Back </button>
-<button type="button" id="next" onclick="next()"> Next </button>
-<button type="button" id="next" onclick="reset()"> Reset </button>
-<button type="button" id="reset" onclick="fill()"> Fill </button>
-<button type="button" id="clear" onclick="clearboard()"> Clear </button>
-<button type="button" id="play" onclick="play()"> Play </button>
+
+<button class="lifebtn" type="button" id="back" onclick="back()"> Back </button>
+<button class="lifebtn" type="button" id="next" onclick="next()"> Next </button>
+<button class="lifebtn" type="button" id="next" onclick="reset()"> Reset </button>
+<button class="lifebtn" type="button" id="reset" onclick="fill()"> Fill </button>
+<button class="lifebtn" type="button" id="clear" onclick="clearboard()"> Clear </button>
+<button class="lifebtn" type="button" id="play" onclick="play()"> Play </button>
 <script src="static/js/life.js"></script>
 
 {% endblock %}
