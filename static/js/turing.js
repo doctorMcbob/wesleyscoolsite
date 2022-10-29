@@ -372,4 +372,3 @@ document.addEventListener('keydown', (e) => {
         
     draw(ctx);
 });
-

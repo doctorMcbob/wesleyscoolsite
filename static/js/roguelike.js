@@ -73,26 +73,38 @@ const STATS = {
 }
 
 // keys
-const ACTORS = [ // the order is important for how they are drawn
-    "BLOOD", "STONE",  // first bottom color from the bottom of the list
-    "WALLS", "HARDWOOD",  // first sprite from the top of the list
+// the order is important for how they are drawn
+// first bottom color from the bottom of the list
+// first sprite from the top of the list 
+const ACTORS = [
+    "BLOOD", "STONE",
+    "SPORE",
+    "CARPET1", "CARPET2", "TABLE",
+    "WALLS", "HARDWOOD",  
     "ASH",
     "WATER",
     "GRASS1",  "GRASS2",  "GRASS3",
+    "ROCK1",  "ROCK2",  "ROCK3",
     "DOORS", "CHEST",
     "FIREBALL", 
     "FIRE1", "FIRE2", "FIRE3",
+    "CARPET1", "CARPET2",
     "DOWNSTAIRS", "UPSTAIRS",
-    "TELEPORTER", "FIRE WAND", "FOOD", "KEY",
+    "RED MUSHROOM", "BLUE MUSHROOM", "GREEN MUSHROOM",
+    "PURPLE MUSHROOM", "BLACK MUSHROOM", "WHITE MUSHROOM",
+    "TELEPORTER", "FIRE WAND", "FOOD", "KEY", "THROWING STAR",
     "GOOSEBALL", "RABBIT", "VILLAGER",
+    "BAT", "SNAKE", "DWARF", "TABLE",
+    "STAR", "STAR1", "STAR2",
     "PLAYER",
     "END", "STEPS",
     "WELCOME", "TUTORIAL1", "TUTORIAL2", "TUTORIAL3", "TUTORIAL4",
     "TUTORIAL5", "TUTORIAL6", "TUTORIAL7", "TUTORIAL8", "TUTORIAL9",
     "TUTORIAL10", "TUTORIAL11", "TUTORIAL12",
 ];
-const TANGIBLE = ["WALLS", "STONE", "WATER"];
-const FLAMMABLE = ["WALLS", "HARDWOOD", "DOORS", "GRASS2"];
+
+const TANGIBLE = ["WALLS", "STONE", "WATER", "TABLE"];
+const FLAMMABLE = ["WALLS", "HARDWOOD", "DOORS", "GRASS2", "CARPET1", "CARPET2", "TABLE"];
 
 // token representation
 const SPRITES = {
@@ -100,7 +112,8 @@ const SPRITES = {
     "WATER"     : "~",
     "WALLS"     : "#",
     "VILLAGER"  : "Ö",
-    "BLOOD"     : " ",
+    "BLOOD"     : "",
+    "SPORE"     : "",
     "FOOD"      : "º",
     "CHEST"     : "€",
     "KEY"       : "¬",
@@ -113,6 +126,12 @@ const SPRITES = {
     "GRASS1"    : ",",
     "GRASS2"    : ",",
     "GRASS3"    : ".",
+    "ROCK1"     : "+",
+    "ROCK2"     : "×",
+    "ROCK3"     : "+",
+    "STAR1"     : "×",
+    "STAR2"     : "+",
+    "THROWING STAR": "×",
     "UPSTAIRS"  : ">",
     "DOWNSTAIRS": "<",
     "DOORS"     : "_",
@@ -120,12 +139,25 @@ const SPRITES = {
     "PLAYER"    : "@",
     "RABBIT"    : "r",
     "GOOSEBALL" : "g",
+    "BAT"       : "b",
+    "SNAKE"     : "s",
+    "DWARF"     : "ô",
+    "TABLE"     : "=",
+    "CARPET1"   : "]",
+    "CARPET2"   : "[",    
     "FIREBALL"  : "•",
+    
+    "RED MUSHROOM": "¶",
+    "BLUE MUSHROOM": "¶",
+    "GREEN MUSHROOM": "¶",
+    "PURPLE MUSHROOM": "¶",
+    "BLACK MUSHROOM": "¶",
+    "WHITE MUSHROOM": "¶",
     
     "END"       : "You have reached the end! ~",
     "STEPS"     : "You took 0 steps",
-    "WELCOME"   : "Welcome to my cool roguelike!",
-    "TUTORIAL1" : "W A S D to move",
+    "WELCOME"   : "Welcome to Another Procedural Dungeon Crawler!",
+    "TUTORIAL1" : "W A S D to move.       You must go up the stairs!",
     "TUTORIAL2" : "Down stairs:",
     "TUTORIAL3" : "Up stairs:",
     "TUTORIAL4" : "Player: ",
@@ -146,20 +178,39 @@ const COLORS = {
     "WALLS": ["#C19A6B", "#4D3300"],
     "WATER": ["#4F42B5", "#0077BE"],
     "BLOOD": ["#AF002A", "#000000"],
-    "UPSTAIRS"  : ["#FFFF00", "#000000"],
+    "RED MUSHROOM": [false, "#FF0000"],
+    "BLUE MUSHROOM": [false, "#0000FF"],
+    "GREEN MUSHROOM": [false, "#00FF00"],
+    "PURPLE MUSHROOM": [false, "#FF00FF"],
+    "BLACK MUSHROOM": [false, "#000000"],
+    "WHITE MUSHROOM": [false, "#FFFFFF"],
+    "UPSTAIRS": ["#FFFF00", "#000000"],
     "DOWNSTAIRS": ["#FFFF00", "#000000"],
     "DOORS": ["#C19A6B", "#664C28"],
     "GRASS1": ["#BFFFB3", "#004D0D"],
     "GRASS2": ["#BFFFB3", "#113300"],
     "GRASS3": ["#BFFFB3", "#004D0D"],
+    "ROCK1": ["#A9A9A9", "#696969"],
+    "ROCK2": ["#BEBEBE", "#CFCFC4"],
+    "ROCK3": ["#D3D3D3", "#C5C1AA"],
     "FIRE1": [false, "#FF0000"],
     "FIRE2": [false, "#E60000"],
     "FIRE3": [false, "#800000"],
+    "STAR1": [false, "#990000"],
+    "STAR2": [false, "#990000"],
+    "THROWING STAR": [false, "#990000"],
+    "CARPET1": ["#84DE02", "#004D00"],
+    "CARPET2": ["#E32636", "#800015"],
     "ASH": [false, "#BEB2B5"],
     "PLAYER": [false, "NEG"],
     "CHEST": [false, "#654321"],
     "KEY": [false, "#848482"],
     "RABBIT": [false, "#9F9289"],
+    "GOOSEBALL": [false, "#994D00"],
+    "BAT": [false, "#52414B"],
+    "SNAKE": [false, "#375C01"],
+    "DWARF": [false, "#FF7733"],
+    "TABLE": ["#B33B00", "#452E16"],
     "GOOSEBALL": [false, "#994D00"],
     "VILLAGER": [false, "#4D004D"],
     "TELEPORTER": [false, "#0000FF"],
@@ -188,14 +239,21 @@ const BRAINS = {
     "GOOSEBALL": [],
     "RABBIT": [],
     "VILLAGER": [],
+    "BAT": [],
+    "SNAKE": [],
+    "DWARF": [],
     "FIREBALL": [],
     "CHEST": [],
+    "STAR": [],
+    "SPORE": [],
     "PLAYER": {
 	DIR: "0,0",
 	pos: pack(27, 8),
 	firewanduse: 10,
+	throwstaruse: 8,
     },
 }
+
 const ITEMS = {
     "TELEPORTER": {
 	btn: "Teleport",
@@ -248,7 +306,65 @@ const ITEMS = {
 	    STATS.HP += 15 + Math.floor(Math.random()*15);
 	    remove(STATS.INV, "FOOD");
 	}
-    }
+    },
+    "THROWING STAR": {
+	btn: "Throw Star",
+	use: () => {
+	    const dir = unpack(BRAINS.PLAYER.DIR);
+	    const pos = unpack(BRAINS.PLAYER.pos);
+
+	    BRAINS.PLAYER.throwstaruse -= 1;
+	    BRAINS.STAR.push({
+		name: "STAR1",
+		pos: pack(pos[0]+dir[0], pos[1]+dir[1]),
+		direction: dir,
+		floor: DEPTH,
+		update: throwstar,
+		DMG: 10,
+		counter: 0,
+	    });
+	    FLOORS[DEPTH].STAR1.add(pack(pos[0]+dir[0], pos[1]+dir[1]));
+	    remove(STATS.INV, "THROWING STAR");
+	}
+    },
+    "RED MUSHROOM": {
+	btn: "Eat Red Mushroom",
+	use: () => {
+	    remove(STATS.INV, "RED MUSHROOM");
+	}
+    },
+    "BLUE MUSHROOM": {
+	btn: "Eat Blue Mushroom",
+	use: () => {
+	    STATS.STR += Math.floor(Math.random() * 3);
+	    remove(STATS.INV, "BLUE MUSHROOM");
+	}
+    },
+    "GREEN MUSHROOM": {
+	btn: "Eat Green Mushroom",
+	use: () => {
+	    remove(STATS.INV, "GREEN MUSHROOM");
+	}
+    },
+    "PURPLE MUSHROOM": {
+	btn: "Eat Purple Mushroom",
+	use: () => {
+	    remove(STATS.INV, "PURPLE MUSHROOM");
+	}
+    },
+    "BLACK MUSHROOM": {
+	btn: "Eat Black Mushroom",
+	use: () => {
+	    remove(STATS.INV, "BLACK MUSHROOM");
+	}
+    },
+    "WHITE MUSHROOM": {
+	btn: "Eat White Mushroom",
+	use: () => {
+	    remove(STATS.INV, "WHITE MUSHROOM");
+	}
+    },
+
 }
 
 // sets of positions
@@ -289,7 +405,7 @@ function padZero(str, len) {
     return (zeros + str).slice(-len);
 }
 
-function drawBoard (floor) {
+function drawBoard(floor) {
     ctx.fillStyle = FLOOR;
     ctx.fillRect(0, 0, PW*W, PW*H);
 
@@ -358,7 +474,7 @@ function move(x, y) {
 	updateStats();
 	return;
     } else {
-	const brain = anybodyAt(DEPTH, packed);
+	const brain = anybodyAt(DEPTH, packed, ["SPORE"]);
 	if (brain && brain != BRAINS.PLAYER) {
 	    if (brain.HP) {
 		brain.HP -= STATS.STR;
@@ -517,7 +633,7 @@ function getVillage(idx, depth, last) {
     while (i < depth) {
 	const floor = getEmptyFloor();
 	for (let _ = 0; _ < 3 + Math.floor(Math.random() * 10); _++) {
-	    addRoom(floor);
+	    addRoom(floor, last);
 	}
 
 	last = applyStairs(floor, last);
@@ -526,21 +642,28 @@ function getVillage(idx, depth, last) {
 	    for (let x = 0; x < W; x++) {
 		const slot = checkAt(floor, pack(x, y)); 
 		if (!slot) {
-		    const grass = `GRASS${1+Math.floor(Math.random()*3)}`;
-		    floor[grass].add(pack(x, y));
+		    const roll = Math.floor(Math.random()*100);
+		    if (roll < 5 && canFit(floor, x, y, 12, 12, ACTORS)) {
+			addPond(floor, "GRASS", "WATER", x, y, 12, 12);
+		    } else if (roll <= 10 && canFit(floor, x, y, 9, 5, ACTORS)) {
+			addPond(floor, "GRASS", "WATER", x, y, 9, 5);
+		    } else {
+			const grass = `GRASS${1+Math.floor(Math.random()*3)}`;
+			floor[grass].add(pack(x, y));
 
-		    if (Math.floor(Math.random()*100) == 0) {
-			BRAINS["GOOSEBALL"].push({
-			    floor: idx + i,
-			    name: "GOOSEBALL",
-			    pos: pack(x, y),
-			    update: wanderCharge,
-			    state: "wander",
-			    HP: 3,
-			    DMG: 12,
-			    bleeds: true,
-			});
-			floor["GOOSEBALL"].add(pack(x, y));
+			if (Math.floor(Math.random()*100) == 0) {
+			    BRAINS["GOOSEBALL"].push({
+				floor: idx + i,
+				name: "GOOSEBALL",
+				pos: pack(x, y),
+				update: wanderCharge,
+				state: "wander",
+				HP: 3,
+				DMG: 12,
+				bleeds: true,
+			    }); 
+			    floor["GOOSEBALL"].add(pack(x, y));
+			}
 		    }
 		} else if (slot == "HARDWOOD") {
 		    if (Math.floor(Math.random()*200) == 0) {
@@ -575,9 +698,84 @@ function getCaves(idx, depth, last) {
     const floors = [];
     let i = 0;
     while (i < depth) {
-	const floor = getEmptyFloor();
-
+	let floor = getEmptyFloor();
+	const prev = last;
 	last = applyStairs(floor, last);
+
+	let placed = 0
+	while (placed < 30) {
+	    let copy = copyFloor(floor);
+	    while (checkSolvable(copy, prev, last)) {
+		floor = copyFloor(copy);
+		addGash(copy);
+		placed += 1;
+	    }
+	    placed -= 1
+	    
+	}
+
+	for (let y = 0; y < H; y++) {
+	    for (let x = 0; x < W; x++) {
+		const slot = checkAt(floor, pack(x, y));
+		if (!slot) {
+		    const rock = `ROCK${1+Math.floor(Math.random()*3)}`;
+		    floor[rock].add(pack(x, y));
+
+		    if (Math.floor(Math.random() * 20) == 0) {
+			floor["BAT"].add(pack(x, y));
+			BRAINS["BAT"].push({
+			    floor: idx + i,
+			    name: "BAT",
+			    pos: pack(x, y),
+			    update: sleepNswarm,
+			    state: "sleep",
+			    HP: 3,
+			    DMG: 1,
+			    bleeds: true,
+			});
+		    } else if (Math.floor(Math.random() * 80) == 0) {
+			floor["SNAKE"].add(pack(x, y));
+			const mood = Math.floor(Math.random()*10) > 4 ? "mad":"chillin";
+			BRAINS["SNAKE"].push({
+			    floor: idx + i,
+			    name: "SNAKE",
+			    pos: pack(x, y),
+			    update: mood == "mad" ? wanderCharge:waitEnrage,
+			    state: mood == "mad" ? "wander":"wait",
+			    HP: 10,
+			    maxHP: 10,
+			    DMG: 4,
+			    bleeds: true,
+			});
+		    }
+		} else if (slot == "HARDWOOD") {
+		    const roll = Math.floor(Math.random()*400);
+		    if (roll <= 10 && canFit(floor, x, y, 5, 4)) {
+			addTable(floor, idx + i, x, y);
+		    } else if (roll <= 11 ) {
+			floor["DWARF"].add(pack(x, y));
+			BRAINS.DWARF.push({
+			    floor: idx+i,
+			    name: "DWARF",
+			    pos: pack(x, y),
+			    update: wanderEnrage,
+			    state: "wander",
+			    HP: 25,
+			    maxHP: 25,
+			    DMG: 5,
+			    bleeds: true,
+			    drops: ["FOOD", "FOOD", "KEY", "KEY"][Math.floor(Math.random() * 4)],
+			});
+		    } else if (roll <= 20) {
+			if (canFit(floor, x-1, y-1, 3, 3)) {
+			    BRAINS["CHEST"].push(makeChest(idx + i, pack(x, y)));
+			    floor["CHEST"].add(pack(x, y));
+			}
+		    }
+		}
+	    }
+	}
+
 	floors.push(floor);
 	i += 1;	
     }
@@ -681,18 +879,20 @@ function getFloors() {
     floors.push(getStartingFloor());
     let last = pack(9, 7);
 
+    const cavesroll = 4+Math.floor(Math.random()*4);
+
     const village = getVillage(floors.length, 4, last);
     last = village.last;
     for (let idx = 0; idx < village.floors.length; idx++) {
 	floors.push(village.floors[idx]);
     }
-    /*
-    const caves = getCaves(floors.length, 4+Math.floor(Math.random()*4), last);
+
+    const caves = getCaves(floors.length, cavesroll, last);
     last = caves.last;
     for (let idx = 0; idx < caves.floors.length; idx++) {
 	floors.push(caves.floors[idx]);
     }
-
+    /*
     const volcano = getVolcano(floors.length, 2+Math.floor(Math.random()*2), last);
     last = volcano.last;
     for (let idx = 0; idx < volcano.floors.length; idx++) {
@@ -735,8 +935,16 @@ function getFloors() {
 	floors.push(dragonsLair.floors[idx]);
     }
     */
+    
     floors.push(getFinale());
     return floors;
+}
+function copyFloor(floor) {
+    const newfloor = {};
+    for (let key in floor) {
+	newfloor[key] = new Set(floor[key])
+    }
+    return newfloor;
 }
 
 function tangAt(floor, pos) {
@@ -758,8 +966,11 @@ function itemAt(floor, pos) {
     return false;
 }
 
-function anybodyAt(depth, pos) {
+function anybodyAt(depth, pos, ignore=[]) {
     for (let key in BRAINS) {
+	if (ignore.includes(key)) {
+	    continue;
+	}
 	if (key == "PLAYER") {
 	    if (BRAINS.PLAYER.pos == pos & DEPTH == depth) {
 		return BRAINS[key];
@@ -778,8 +989,9 @@ function anybodyAt(depth, pos) {
 }
 
 function checkAt(floor, pos) {
-    for (let idx = 0; idx < ACTORS.length; idx++) {
-	const key = ACTORS[idx];
+    const actors = Object.keys(floor);
+    for (let idx = 0; idx < actors.length; idx++) {
+	const key = actors[idx];
 	if (floor[key].has(pos)) {
 	    return key;
 	}
@@ -813,7 +1025,72 @@ function updateStats() {
     document.getElementById("INVBTNS").innerHTML = buttons;
 }
 
-function getBox(actor, x, y, w, h) {
+function canFit(floor, left, top, w, h, blockList = [...TANGIBLE, "UPSTAIRS", "DOWNSTAIRS"]) {
+    for (let x = left; x < left+w; x++) {
+	for (let y = top; y < top+h; y++) {
+	    const thing = checkAt(floor, pack(x, y));
+	    if (thing && blockList.includes(thing)) {
+		return false;
+	    }
+	}
+    }
+    return true;
+}
+
+function getLine(x1, y1, x2, y2) {
+    const line = [];
+    const issteep = Math.abs(y2-y1) > Math.abs(x2-x1);
+    let swap;
+    if (issteep) {
+	swap = x1;
+	x1 = y1; y1 = swap;
+	swap = x2;
+	x2 = y2; y2 = swap;
+    }
+    let rev = true;
+    if (x1 > x2) {
+	swap = x1;
+	x1 = x2; x2 = swap;
+	swap = y1;
+	y1 = y2; y2 = swap;
+	rev = false;
+    }
+    const deltax = x2 - x1;
+    const deltay = Math.abs(y2-y1);
+    let correction = Math.floor(deltax / 2);
+    let y = y1;
+    const ystep = y1 < y2 ? 1 : -1;
+
+    for (let x = x1; x <= x2; x++) {
+	line.push(issteep ? pack(y, x):pack(x, y));
+	correction -= deltay;
+	if (correction < 0) {
+	    y += ystep;
+	    correction += deltax;
+	}
+    }
+    return line;
+}
+
+function getSpike(peak, x, y, w, h) {
+    const spike = [];
+    const line1 = getLine(x, y, x+peak, y+h);
+    const line2 = getLine(x+peak, y+h, x+w, y);
+    while (line1.length > line2.length) {
+	line2.push(line2[line2.length-1]);
+    }
+    for (let idx = 0; idx < line1.length; idx++) {
+	const unpack1 = unpack(line1[idx]);
+	const unpack2 = unpack(line2[idx]);
+	const direction = unpack1[0] < unpack2[0] ? 1 : -1;
+	for (let dist = 0; dist <= Math.abs(unpack1[0] - unpack2[0]); dist++) {
+	    spike.push(pack(unpack1[0] +(dist * direction), unpack1[1]));
+	}
+    }
+    return spike;
+}
+
+function getBox(x, y, w, h) {
     const box = [];
     for (let idx = 0; idx < w; idx++) {
 	box.push(pack(x + idx, y))
@@ -830,13 +1107,141 @@ function getBox(actor, x, y, w, h) {
     return box;
 }
 
-function addRoom (floor) {
+function tunnelMySpike(spike) {
+    const micro = { "WALLS": new Set(), "HARDWOOD": new Set(), "DOORS": new Set()}
+    const start = unpack(spike[Math.floor(spike.length / 2)]);
+
+    const heads = [pack(start[0]-2, start[1]), pack(start[0]+2, start[1])]
+    
+    for (let x = start[0]-2; x < start[0]+3;x++) {
+	for (let y = start[1]-2; y < start[1]+3;y++) {
+	    if (pack(x, y) in heads) {
+		micro["DOORS"].add(pack(x, y));
+	    } else if (x == start[0]-2 || x == start[0]+2 || y == start[1]-2 || y == start[1]+2) {
+		micro["WALLS"].add(pack(x, y));
+	    } else {
+		micro["HARDWOOD"].add(pack(x, y));
+	    }
+	}
+    }
+
+    while (heads.length) {
+	let head = heads.pop();
+	if (spike.includes(head)) {
+	    const dirs = adjacent(head);
+	    heads.push(dirs[Math.floor(Math.random()*4)]);
+
+	    if (micro["WALLS"].has(head)) {
+		micro["WALLS"].delete(head);
+	    }
+	    micro["HARDWOOD"].add(head);
+	    dirs.forEach((pos) => {
+		if (spike.includes(pos) && !micro["HARDWOOD"].has(pos)) {
+		    micro["WALLS"].add(pos);
+		}
+	    });
+	}	
+    }
+
+    return micro;
+}
+
+function addPond(floor, outside, fill, left, top, w, h) {
+    for (let x = left; x < left+w; x++) {
+	for (let y = top; y < top+h; y++) {
+	    if (
+		x == left || x == left+w-1 || y == top|| y == top+h-1
+		    || (x == left+1 && y == top+1)
+		    || (x == left+1 && y == top+h-2)
+		    || (x == left+w-2 && y == top+1)
+		    || (x == left+w-2 && y == top+h-2)
+	    ) {
+		const name = `${outside}${1+Math.floor(Math.random()*3)}`;
+		floor[name].add(pack(x, y));
+	    } else {
+		floor[fill].add(pack(x, y));
+	    }
+	}
+    }
+}
+
+function addTable(floor, depth, left, top) {
+    for (let x = left; x < left+5; x++) {
+	for (let y = top; y < top+4; y++) {
+	    if (x == left || x == left+4 || y == top || y == top+3) {
+		const carpettype = y > top+1 ? "CARPET1" : "CARPET2";
+		floor[carpettype].add(pack(x, y));
+		if (Math.floor(Math.random() * 4)==1) {
+		    floor["DWARF"].add(pack(x, y));
+		    BRAINS.DWARF.push({
+			floor: depth,
+			name: "DWARF",
+			pos: pack(x, y),
+			update: waitEnrage,
+			state: "wait",
+			HP: 25,
+			maxHP: 25,
+			DMG: 5,
+			bleeds: true,
+			drops: ["FOOD", "FOOD", "FOOD", "KEY"][Math.floor(Math.random() * 4)],
+		    });
+		}
+	    } else {
+		floor["TABLE"].add(pack(x, y));
+	    }
+	}
+    }
+
+    return;
+}
+
+function addGash(floor, last) {
+    const flip =  Math.floor(Math.random()*2) == 1
+    const width = 4 + Math.floor(Math.random() * 15);
+    let height = 3 + Math.floor(Math.random() * 20);
+    if (flip) { height = 0 - height } 
+    const x = -5 +  Math.floor(Math.random() * (W - width + 10));
+    const y = flip ? H-2: 1;
+    const peak = Math.floor(Math.random() * width);
+
+    const spike = getSpike(peak, x, y, width, height);
+
+    const tunnels = tunnelMySpike(spike); 
+    
+    spike.forEach((pos) => {
+	const unpacked = unpack(pos);
+	if (unpacked[0] == 0 || unpacked[0] == W-1 || unpacked[1] == 0 || unpacked[1] == H-1) {
+	    return
+	}
+
+	if (tunnels.HARDWOOD.has(pos) || floor.HARDWOOD.has(pos)) {
+	    floor.HARDWOOD.add(pos);
+	    if (floor.STONE.has(pos)) {
+		floor.STONE.delete(pos);
+	    }
+	    if (floor.WALLS.has(pos)) {
+		floor.WALLS.delete(pos);
+	    }
+	} else if (tunnels.DOORS.has(pos)) {
+	    floor.DOORS.add(pos);	    
+	} else if (tunnels.WALLS.has(pos)) {
+	    if (floor.STONE.has(pos)) {
+		floor.STONE.delete(pos);
+	    }
+	    floor.WALLS.add(pos);	    
+	} else if (!checkAt(floor, pos)) {
+	    floor.STONE.add(pos);
+	}
+    });
+}
+
+function addRoom (floor, last) {
     const width = 5 + Math.floor(Math.random() * 12);
     const height = 5 + Math.floor(Math.random() * 12);
     const top =  2 + Math.floor(Math.random() * (H - height - 4));
     const left = 2 + Math.floor(Math.random() * (W - width - 4));
     
-    const box = getBox("WALLS", left, top, width, height);
+    const box = getBox(left, top, width, height);
     let outside = true;
 
     let idx = 0;
@@ -850,11 +1255,12 @@ function addRoom (floor) {
 	    outside = !outside;
 	}
 	if (outside) {
-	    if (doors.includes(idx)) {
-		floor.DOORS.add(wall);
-		
-	    } else {
-		floor.WALLS.add(wall);
+	    if (wall != last) {
+		if (doors.includes(idx)) {
+		    floor.DOORS.add(wall);
+		} else {
+		    floor.WALLS.add(wall);
+		}
 	    }
 	}
 	idx += 1;
@@ -872,6 +1278,26 @@ function addRoom (floor) {
 	}
     }
     drawBoard(floor);
+}
+
+function sporespread(floor, brain) {
+    for (let idx = 0; idx < BRAINS.SPORE.length; idx++) {
+	const obrain = BRAINS.SPORE[idx];
+	if (obrain.gene == brain.gene || obrain.floor != brain.floor) {
+	    continue;
+	}
+	if (obrain.pos == brain.pos) {
+	    remove(BRAINS.SPORE, obrain);
+	    floor[mushCombine(brain.gene, obrain.gene)].add(brain.pos);
+	    return false;
+	}
+    }
+    
+    if (anybodyAt(brain.floor, brain.pos, ["SPORE"])) {
+	const nbr = adjacent(brain.pos)[Math.floor(Math.random()*4)];
+	brain.pos = nbr;
+    }
+    return true;
 }
 
 function actorTurn() {
@@ -955,15 +1381,55 @@ function boardTurn() {
 		}
 	    });
 	}
+
+	floor["BLOOD"].forEach((pos) => {
+	    if (!anybodyAt(idx, pos) && Math.floor(Math.random() * 50) == 0) {
+		BRAINS.SPORE.push({
+		    name: "SPORE",
+		    pos,
+		    floor: idx,
+		    gene: ["A", "B", "C", "D"][Math.floor(Math.random()*4)],
+		    update: sporespread,
+		});
+		if (Math.floor(Math.random() * 10) == 0) {
+		    floor.BLOOD.delete(pos);
+		}
+	    }
+	});
     }
 }
 
-function wander(floor, brain) {
+function mushCombine(a, b) {
+    const result = {
+	"AB": "RED MUSHROOM",
+	"AC": "BLUE MUSHROOM",
+	"AD": "GREEN MUSHROOM",
+	"BC": "PURPLE MUSHROOM",
+	"BD": "BLACK MUSHROOM",
+	"CD": "WHITE MUSHROOM",
+    }
+    
+    const order = ["A", "B", "C", "D"];
+    const idx1 = order.indexOf(a);
+    const idx2 = order.indexOf(b);
+    return result[`${order[Math.min(idx1, idx2)]}${order[Math.max(idx1, idx2)]}`];
+}
+
+function wander(floor, brain, safe=false) {
     if (Math.floor(Math.random() * 3) == 0) {
 	const unpacked = unpack(brain.pos);
 	const x = Math.floor(Math.random()*3)-1;
 	const y = Math.floor(Math.random()*3)-1;
-	if (tangAt(floor, pack(unpacked[0]+x, unpacked[1]+y)) || anybodyAt(FLOORS.indexOf(floor), pack(unpacked[0]+x, unpacked[1]+y))) {
+	if (tangAt(floor, pack(unpacked[0]+x, unpacked[1]+y))) {
+	    return true;
+	}
+	const obrain = anybodyAt(FLOORS.indexOf(floor), pack(unpacked[0]+x, unpacked[1]+y), ["SPORE"]);
+	if (obrain && obrain != brain) {
+	    if (!safe && obrain == BRAINS.PLAYER) {
+		STATS.HP -= brain.DMG;
+	    } else if (!safe && obrain.HP && brain.DMG) {
+		obrain.HP -= brain.DMG;
+	    } 
 	    return true;
 	}
 	floor[brain.name].delete(brain.pos);
@@ -971,6 +1437,25 @@ function wander(floor, brain) {
 	floor[brain.name].add(brain.pos);
     }
     return true;
+}
+
+function throwstar(floor, brain) {
+    floor[brain.name].delete(brain.pos);
+    brain.name = brain.counter % 2 == 1 ? "STAR1" : "STAR2";
+    brain.counter++;
+    const result = charge(floor, brain);
+
+    if (result == "hit") {
+	floor[brain.name].delete(brain.pos);
+	if (BRAINS.PLAYER.throwstaruse > 0) {
+	    floor["THROWING STAR"].add(brain.pos);
+	} else {
+	    BRAINS.PLAYER.throwstaruse = 8;
+	}
+	return false;
+    }
+
+    return result;
 }
 
 function fireball(floor, brain) {
@@ -985,7 +1470,6 @@ function fireball(floor, brain) {
 	}
 
     }
-    
     return result;
 }
 
@@ -1008,7 +1492,7 @@ function charge(floor, brain) {
 	STATS.HP -= brain.DMG;
 	return "hit";
     }
-    const otherBrain = anybodyAt(FLOORS.indexOf(floor), pack(x, y));
+    const otherBrain = anybodyAt(FLOORS.indexOf(floor), pack(x, y), ["SPORE"]);
     if (otherBrain) {
 	if (otherBrain.pos == pack(x, y)) {
 	    if (otherBrain.HP && brain.DMG) {
@@ -1017,7 +1501,7 @@ function charge(floor, brain) {
 	    return "hit";
 	}
     }
-        
+    
     floor[brain.name].delete(brain.pos);
     brain.pos = pack(x, y);
     floor[brain.name].add(brain.pos);
@@ -1027,13 +1511,11 @@ function charge(floor, brain) {
 function wanderCharge(floor, brain) {
     if (brain.state == "wander") {
 	wander(floor, brain);
-	let playerpos = false;
+	
+	let playerpos = BRAINS.PLAYER.pos;
 	const direction = [0, 0];
-	floor.PLAYER.forEach((pos) => {
-	    playerpos = pos;
-	});
 
-	if (playerpos) {
+	if (DEPTH == brain.floor) {
 	    const unpackedpl = unpack(playerpos);
 	    const unpacked = unpack(brain.pos);
 	    if (unpacked[0] == unpackedpl[0]) {
@@ -1058,8 +1540,53 @@ function wanderCharge(floor, brain) {
     }
 }
 
+function sleepNswarm(floor, brain) {
+    if (brain.state == "sleep") {
+	if (isnear(2, brain.pos, BRAINS.PLAYER.pos) && DEPTH == brain.floor) {
+	    brain.state = "swarm";
+	}
+    } else if (brain.state == "swarm") {
+	return swarm(floor, brain);
+    }
+    return true;
+}
+
+function swarm(floor, brain) {
+    const unpacked = unpack(brain.pos);
+    const playerpos = unpack(BRAINS.PLAYER.pos);
+    const twordsx = unpacked[0] > playerpos[0] ? -1: 1;
+    const twordsy = unpacked[1] > playerpos[1] ? -1: 1;
+    const randx = Math.floor(Math.random()*3)-1;
+    const randy = Math.floor(Math.random()*3)-1;
+
+    const flip = Math.floor(Math.random() * 2) == 1;
+    const x = flip ? twordsx: randx;
+    const y = flip ? twordsy: randy;
+
+    if (tangAt(floor, pack(unpacked[0]+x, unpacked[1]+y))) {
+	return true;
+    }
+    const obrain =anybodyAt(FLOORS.indexOf(floor), pack(unpacked[0]+x, unpacked[1]+y), ["SPORE"]);
+    if (obrain && obrain != brain) {
+	if (obrain == BRAINS.PLAYER) {
+	    STATS.HP -= brain.DMG;
+	} else if (obrain.HP && brain.DMG) {
+	    obrain.HP -= brain.DMG;
+	} 
+	return true;
+    }
+    floor[brain.name].delete(brain.pos);
+    brain.pos = pack(unpacked[0]+x, unpacked[1]+y);
+    floor[brain.name].add(brain.pos);
+
+    return true;
+
+}
 
 function rage(floor, brain) {
+    if (DEPTH != brain.floor) {
+	return true;
+    }
     brain.steps += 1;
     if (brain.steps > 5) {
 	brain.steps = 0;
@@ -1078,8 +1605,8 @@ function rage(floor, brain) {
 	const ymod = ydiff > 0 ? -1:1;
 	newpos = pack(mypos[0], mypos[1] + ymod);
     }
-
-    const anybody = anybodyAt(brain.floor, newpos);
+    
+    const anybody = anybodyAt(brain.floor, newpos, ["SPORE"]);
     if (anybody) {
 	if (anybody == BRAINS.PLAYER) {
 	    STATS.HP -= brain.DMG;
@@ -1096,6 +1623,21 @@ function rage(floor, brain) {
 	floor[brain.name].add(brain.pos);
 	return true;
     }
+}
+
+function wanderEnrage(floor, brain) {
+    if (brain.state == "wander") {
+	if (brain.HP < brain.maxHP) {
+	    brain.state = "rage";
+	    brain.steps = 0;
+	    brain.target = BRAINS.PLAYER.pos;
+	}
+	return wander(floor, brain, true);
+    } else if (brain.state = "rage") {
+	return rage(floor, brain);
+    }
+    return true;
+
 }
 
 function waitEnrage(floor, brain) {
@@ -1121,6 +1663,42 @@ function adjacent(pos) {
     ]
 }
 
+function isnear(distance, pos1, pos2) {
+    const p1 = unpack(pos1);
+    const p2 = unpack(pos2);
+
+    return (Math.abs(p1[0] - p2[0]) <= distance) && (Math.abs(p1[1] - p2[1]) <= distance)
+}
+
+function inbetween(n, a, b) {
+    return n > Math.min(a, b) && n < Math.max(a, b);
+}
+
+function checkSolvable(floor, start, end) {
+    const checked = new Set();
+    const heads = [start];
+    if (tangAt(floor, start) || tangAt(floor, end)) {
+	return false;
+    }
+
+    while (!heads.includes(end)) {
+	const head = heads.pop();
+	checked.add(head);
+	
+	const nbrs = adjacent(head);
+	nbrs.forEach((pos) => {
+	    if (!tangAt(floor, pos) && !checked.has(pos)) {
+		heads.push(pos);
+	    }
+	});
+
+	if (heads.length == 0) {
+	    return false;
+	}
+    }
+    return true;
+}
+
 function makeChest(floor, pos, forcelock = false, defaultItem = false) {
     let item = defaultItem;
     if (!item) {
@@ -1128,12 +1706,14 @@ function makeChest(floor, pos, forcelock = false, defaultItem = false) {
 	const roll = Math.floor(Math.random() * 100);
 	if (roll <= 10) {
 	    item = itemKeys[Math.floor(Math.random() * itemKeys.length)];
-	} else if (roll <= 50) {
+	} else if (roll <= 30) {
 	    item = "FOOD";
-	} else if (roll <= 58) {
+	} else if (roll <= 38) {
 	    item = "TELEPORTER";
-	} else if (roll <= 80) {
+	} else if (roll <= 50) {
 	    item = "FIRE WAND";
+	} else  if (roll <= 65) {
+	    item = "THROWING STAR";
 	} else {
 	    item = "KEY";
 	}

@@ -12,6 +12,24 @@
   </p>
 </div>
 <canvas id="board"></canvas>
+<script>
+  function drawLoadingScreen () {
+  const W = 48; const H = 32;
+  const PW = 16;
+  
+  const canvas = document.getElementById("board");
+  const ctx = canvas.getContext("2d");
+  ctx.canvas.width = W*PW; ctx.canvas.height = H*PW;
+  ctx.font = String(PW) + "px Arial";
+  
+  ctx.fillStyle = "#CFCFCF";
+  ctx.fillRect(0, 0, PW*W, PW*H);
+  ctx.fillStyle = "#000000";
+  ctx.fillText("Building your tower...", 3*PW, 3*PW);
+  ctx.fillText("STILL IN BETA! If you are stuck here, try reloading the page :E sorry! ", 3*PW, 8*PW);
+  }
+  drawLoadingScreen();
+</script>
 <br>
 <div class="roguelikemove">
   <button class="movebutton" id="UP" onclick="move(0, -1)"> UP </button>

@@ -32,8 +32,12 @@ def main(request):
 
 def blog_response(request):
     blogs = list(BLOGS.keys())
-    blogs.sort()
-    blogs = blogs[::-1]
+    sorted_blogs = []
+    for blog in blogs:
+        n, name = blog.split(":")
+        sorted_blogs.append((int(n), blog))
+    sorted_blogs.sort()
+    blogs = [blog[1] for blog in sorted_blogs[::-1]]
     return Response(tempenv.get_template("blog.html").render(blogs=blogs))
 
 def a_blog(request):
