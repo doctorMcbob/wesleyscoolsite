@@ -1,0 +1,40 @@
+<!--
+motherfucker reading my comments
+/!-->
+
+<h3>Let me begin this post with a joke:</h3>
+why was 9 afraid of 10?
+Because 10, 11, 12
+<br>
+<h3>Red Pants Deluxe 2 Update</h3>
+As of when I wrote this I have been re writing the games engine in C which as it turns out is hard.
+Once its done my game will no longer qualify as a virus and it will no longer be eligable for the top 10 viruses of the year award, so I will unfortunately not be entering.
+
+Its a daunting amount of work, but it isn't very much code.
+Its going to be a wild ride, and ill see you on the other side.
+<!--
+Bars
+
+Anyways for those of you who arent fucking idiots and actually give a shit which is less then 0 more like a hundredth of a zero (if you know what im fucking talking about (thats whats up) ) 
+/!-->
+
+I've been learning so much with C its really been a blast
+I have the sprites module done and the inputs module done
+
+Next I have Actors Worlds, Frames,
+Boxes(hit/hurt) and then finally Scripts
+
+I really have to take my time and think through the details from the top before i dive into a lot of this.
+
+I am thinking about what types of tokens are fundementally important to the scripting language.
+There is a lot of loosey goosey data typing I have to deal with.
+
+I am probably going to have some sort of union type that will stand in for a red pants script token (patent pending)
+
+Anyways, my head has been all over the place so this project has been some much needed cold dry caluclation, cheers.
+
+<h3>Some Gifs</h3>
+<img src="/static/img/redpantsupdate0.gif" />
+<img src="/static/img/redpantsupdate1.gif" />
+<img src="/static/img/redpantsupdate2.gif" />
+<img src="/static/img/redpantsupdate3.gif" />
