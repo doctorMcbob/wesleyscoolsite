@@ -1,0 +1,63 @@
+<!--
+We're back
+-->
+<h1>Yes I've been playing chess</h1>
+
+It's true, if you want to play me <a href="https://lichess.org/@/wxly">I'm wxly on lichess</a>
+<!-- 
+~~~ --- A Quick Note --- ~~~
+
+Lichess might be the best story in open source.
+
+Lets consider Lichess vs Chess Com
+
+            Lichess   |  Chess Com
+          ------------+--------------
+             Free     | Free to play (ew)
+           Beautiful  |  Branding everywhere
+            Real API  | No Real API (there exists a fan documentation)
+          Open Source | Ha Ha Ha Absolutely Not
+  Teaches Ad Blockers |  Sells Out
+        Free Puzzles  | Paywall
+    Open Free Studies | Paywall
+        No Duck Chess |  Duck Chess
+
+if it wasn't for duck chess I wouldn't have an account
+
+Lichess is so much better then chess com
+-->
+<h1>The Knight Sure Is Tricky Eh?</h1>
+
+Behold. 12 x 13
+
+<img src="/static/img/12_13.png" width="50%">
+
+<h1>What Am I Even Looking At?</h1>
+
+Consider the knight in chess. He moves One square across an axis and Two squares across the other.
+<br>
+1 x 2
+<img src="/static/img/1_2.png" width="50%">
+<br>
+This image is charting the knights moves. The center is black. Every knight move from there is a different color.
+<br>
+For example, ONE knight move away is one color. TWO knight moves away is another color. THREE knight moves is another... and so on.
+<br>
+So what if the knight didnt move in One by Two? What if he moved Two by Three?
+<br>
+2 x 3
+<img src="/static/img/2_3.png" width="50%">
+<br>
+3 x 4
+<img src="/static/img/3_4.png" width="50%">
+<br>
+<h1>Yeah cut to the chase and post the gifs we get it</h1>
+The following is what happens when you increase the knight move by one every iteration
+(I only charted 200 moves)
+<img src="/static/img/km-increment.gif" width="50%">
+<br>
+The following is what happens when you keep the first number as a 2 and let the second number be increasing subsequent prime numbers.
+<img src="/static/img/km-primes.gif" width="50%">
+
+<h1> Okay so why does it look like that? </h1>
+Hey man beats me.
